@@ -7,4 +7,7 @@ This project is for development of SipVideoCall plugin
 2. Install NodeJS dependencies
 ```
 npm install
-```
+npm install ionic@latest -g
+npm run -- gulp testapp:devel
+npm run -- gulp testapp:build:android
+npm run -- gulp testapp:build:ios
