@@ -1,0 +1,12 @@
+[
+  {"connecting": "Connecting..."},
+  {"calling" : "Calling..."},
+  {"calling_mute" : "Mute"},
+  {"calling_speaker" : "Speaker"},
+  {"recording" : "The call is being recorded"},
+  {"registering": "Login..."},
+  {"establishing": "Establishing Call..."},
+  {"retrying": "Retrying Call..."},
+  {"ending": "Releasing Call..."},
+  {"low_signal_alert": "There are problems with the network"}
+]

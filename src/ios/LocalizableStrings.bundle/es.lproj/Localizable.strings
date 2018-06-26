@@ -1,0 +1,47 @@
+﻿/* Name of application */
+"APPLICATION_NAME" = "Sanitas";
+
+/* No comment provided by engineer. */
+"calling" = "Llamando...";
+
+/* Company name */
+"company_name" = "Nombre de empresa";
+
+/* Connecting */
+"connecting" = "Conectando...";
+
+/* Registering */
+"registering" = "Registrando...";
+
+/* Establishing Call */
+"establishing" = "Estableciendo llamada...";
+
+/* Retrying */
+"retrying" = "Reintentando llamada...";
+
+/* Ending */
+"ending" = "Finalizando llamada...";
+
+/* Mute button */
+"mute" = "Silenciar";
+
+/* No comment provided by engineer. */
+"No microphone" = "Sin micrófono";
+
+/* No comment provided by engineer. */
+"Ok" = "Ok";
+
+/* Service name */
+"service_name" = "Nombre del servicio";
+
+/* Speaker button */
+"speaker" = "Altavoz";
+
+/* No comment provided by engineer. */
+"You need to plug a microphone to your device to use this application." = "No se detecta un micrófono en este dispositivo";
+
+/* recording notification text */
+"recording_text" = "La conversación se está grabando";
+
+/* quality low alert text */
+"low_signal_alert" = "Existen problemas de red";

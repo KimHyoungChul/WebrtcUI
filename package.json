@@ -1,0 +1,30 @@
+{
+  "name": "phemium-videocall-plugin",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "gulp": "node node_modules/gulp/bin/gulp.js",
+    "cordova": "node node_modules/cordova/bin/cordova"
+  },
+  "devDependencies": {
+    "child-process": "^1.0.2",
+    "cordova": "^8.0.0",
+    "del": "^2.2.2",
+    "fs-extra": "^6.0.1",
+    "glob": "^7.1.2",
+    "gulp": "^4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-css2js": "^1.1.2",
+    "gulp-html2js": "^0.4.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-shell": "^0.5.2",
+    "gulp-zip": "^3.2.0",
+    "merge-stream": "^1.0.1",
+    "moment": "2.19.4",
+    "node-sass": "^4.9.0",
+    "rimraf": "^2.5.4",
+    "unzip": "^0.1.11",
+    "xcode": "^0.9.1"
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {"connecting": "Conectando..."},
+  {"calling" : "Llamando..."},
+  {"calling_mute" : "Silenciar"},
+  {"calling_speaker" : "Altavoz"},
+  {"recording" : "La conversación se está grabando"},
+  {"registering": "Registrando..."},
+  {"establishing": "Estableciendo llamada..."},
+  {"retrying": "Reintentando llamada..."},
+  {"ending": "Finalizando llamada..."},
+  {"low_signal_alert": "Existen problemas de red"}
+]

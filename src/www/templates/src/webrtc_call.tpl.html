@@ -1,0 +1,98 @@
+<div class="phe-videocall-wrapper">
+
+  <!-- VIDEO CALL -->
+  <div data-id="video-call">
+
+    <!-- REMOTE VIDEO -->
+    <div data-id="video-remote" class="phe-videocall-video remote" draggable="true"></div>
+
+    <!-- LOCAL VIDEO -->
+    <div data-id="video-local" class="phe-videocall-video local" draggable="true">
+    </div>
+
+    <!-- CALL HEADER -->
+    <div class="phe-videocall-header">
+      <div class="phe-video-call-header-left"></div>
+      <div class="phe-video-call-header-center phe-videocall-info">
+        <div data-id="callee-name" class="phe-videocall-info-name phe-text-ellipsis"></div>
+        <div class="phe-videocall-info-duration">
+          <span data-id="call-duration"></timer>
+        </div>
+      </div>
+      <div data-id="chat-icon" class="phe-video-call-header-right phe-video-call-chat">
+        <img src="phemium-videocall/images/chat.png" />
+        <span data-id="video-badge-number" class="badge" style="display: none;"></span>
+      </div>
+    </div>
+
+    <!-- ACTIONS TOOLBAR -->
+    <div class="phe-videocall-toolbar" data-id="actions-toolbar">
+
+      <!-- Toggle audio -->
+      <div data-id="toggle-audio-button" class="action">
+        <img data-id="micro-enabled" src="phemium-videocall/images/videocall-mute.png" />
+        <img data-id="micro-disabled" src="phemium-videocall/images/videocall-unmute.png" style="display: none"/>
+      </div>
+
+      <!-- Toggle video -->
+      <div data-id="toggle-video-button" class="action">
+        <img data-id="camera-enabled" src="phemium-videocall/images/videocall-mute-camera.png" />
+        <img data-id="camera-disabled" src="phemium-videocall/images/videocall-unmute-camera.png" style="display: none"/>
+      </div>
+
+      <!-- Toggle camera side -->
+      <div data-id="toggle-camera-button" class="action">
+        <img data-id="front-camera" src="phemium-videocall/images/videocall-switch-camera.png" />
+      </div>
+
+      <!-- Hangup Button -->
+      <div data-id="hangup-button" class="action phe-bg-red">
+        <img src="phemium-videocall/images/videocall-close.png" />
+      </div>
+    </div>
+  </div>
+  <!-- END OF VIDEO CALL -->
+
+  <!-- AUDIO CALL -->
+  <div data-id="audio-call" ng-show="ctrl.fullscreen">
+    <div class="phe-videocall-header">
+      <div class="phe-video-call-header-right phe-video-call-chat" ng-click="ctrl.toggle_fullscreen()">
+        <i class="ion ion-chatbox-working"></i>
+        <span data-id="audio-badge-number" class="badge" style="display: none;"></span>
+      </div>
+    </div>
+
+    <div class="phe-videocall-caller-image">
+      <phe-avatar ng-if="ctrl.is_audio_call" phe-user="ctrl.consultant"></phe-avatar>
+    </div>
+
+    <div class="phe-videocall-caller-info">
+      <div class="phe-videocall-caller-name phe-text-ellipsis">{{ctrl.consultant.presentation_name}}</div>
+      <div class="phe-videocall-info-duration">
+        <timer autostart="false" interval="1000">{{mminutes}}:{{sseconds}}</timer>
+      </div>
+    </div>
+
+    <div class="phe-videocall-actions-toolbar">
+      <div ng-class="{false:'phe-bg-orange'}[ctrl.micro_enabled]" ng-click="ctrl.toggle_audio()" class="action">
+        <i ng-class="{true:'ion-android-microphone-off',false:'ion-android-microphone'}[ctrl.micro_enabled]" class="icon"></i>
+      </div>
+    </div>
+
+    <div class="phe-videocall-buttons">
+
+      <!-- Hangup Button -->
+      <div data-id="hangup-button" class="phe-videocall-button cancel assertive-bg icon ion-ios-telephone" ng-class="{true:'zoomIn',false:'zoomOut'}[ctrl.action_pending]"></div>
+    </div>
+
+  </div>
+  <!-- END OF AUDIO CALL -->
+
+  <!-- MINIMIZED AUDIO -->
+  <div ng-show="ctrl.is_audio_call && !ctrl.fullscreen" ng-click="ctrl.toggle_fullscreen();">
+    <div class="phe-videocall-caller-image">
+      <phe-avatar ng-if="ctrl.is_audio_call" phe-user="ctrl.consultant"></phe-avatar>
+    </div>
+  </div>
+
+</div>

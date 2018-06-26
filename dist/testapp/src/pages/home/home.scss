@@ -1,0 +1,21 @@
+page-home {
+  .segment-ios {
+    padding: 0 2rem;
+  }
+
+  .toolbar-md {
+    padding: 0;
+
+    .toolbar-content-md ion-segment {
+      transform: translateY(7px);
+
+      ion-segment-button {
+        border-bottom-width: 0;
+
+        &.segment-activated {
+          border-bottom-width: 2px;
+        }
+      }
+    }
+  }
+}

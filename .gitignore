@@ -1,0 +1,10 @@
+.history
+plugin.xml
+node_modules
+.DS_Store
+builds
+/.vscode
+/.idea
+/builds
+/*.apk
+/package-lock.json

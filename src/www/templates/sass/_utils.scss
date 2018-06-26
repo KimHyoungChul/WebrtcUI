@@ -1,0 +1,13 @@
+// Utils font & BG colors
+$util_names: 'red' 'green' 'orange' 'blue';
+$util_colors: $red $green $orange $blue;
+
+@for $i from 1 through length( $util_names ) {
+  .phe-#{nth( $util_names, $i )} {
+    color: nth( $util_colors, $i ) !important;
+  }
+
+  .phe-bg-#{nth( $util_names, $i )} {
+    background-color: nth( $util_colors, $i ) !important;
+  }
+}

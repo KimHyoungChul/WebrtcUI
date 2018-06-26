@@ -1,0 +1,10 @@
+variables:
+  GIT_STRATEGY: clone
+
+stages:
+  - build_stage
+
+build_job:
+  stage: build_stage
+  script:
+    - bash -x docker_build.sh

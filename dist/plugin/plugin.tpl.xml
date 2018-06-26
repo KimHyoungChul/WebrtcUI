@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="{{plugin_id}}" version="{{plugin_version}}" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <name>{{plugin_name}}</name>
+
+  <description>
+    {{plugin_description}}
+  </description>
+
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+    <engine name="cordova-android" version=">=3.0.0" />
+    <engine name="cordova-ios" version=">=3.0.0" />
+  </engines>
+
+  <!-- HTML files -->
+  <asset src="src/www" target="phemium-videocall" />
+
+
+  <platform name="browser">
+  </platform>
+
+  <!-- Android -->
+  <platform name="android">
+
+    <!-- <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="SipVideoCall">
+        <param name="android-package" value="com.phemium.sipvideocall.SipVideoCall" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file> -->
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
+    </config-file>
+
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity
+            android:name="com.phemium.sipvideocall.activities.SipVideoCallActivity"
+            android:configChanges="screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+       <activity
+            android:name="com.phemium.sipvideocall.activities.CallInitActivity"
+            android:configChanges="screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+      <receiver android:enabled="true" android:name="com.phemium.sipvideocall.receiver.HeadsetPlugReceiver">
+          <intent-filter>
+              <action android:name="android.intent.action.HEADSET_PLUG" />
+          </intent-filter>
+      </receiver>
+      <receiver android:name="com.phemium.sipvideocall.AlarmReceiver" android:enabled="true">
+      </receiver>
+      <receiver android:name="com.phemium.sipvideocall.receiver.NetworkReceiver">
+           <intent-filter>
+               <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+           </intent-filter>
+      </receiver>
+
+    </config-file>
+
+    <config-file target="res/values/strings.xml" parent="/resources">
+      <string name="connecting" translatable="false">Conectando...</string>
+      <string name="calling" translatable="false">Llamando...</string>
+      <string name="calling_mute" translatable="false">Silenciar</string>
+      <string name="calling_speaker" translatable="false">Altavoz</string>
+      <string name="doctor_name" translatable="false"></string>
+      <string name="recording" translatable="false">Grabando</string>
+    </config-file>
+
+    <!-- dimens file -->
+    <resource-file src="src/android/res/values/dimens.xml" target="res/values/dimens.xml"/>
+
+    <!-- Libraries -->
+    <lib-file src="src/android/libs/liblinphone-android-sdk.aar" target-dir="libs/" />
+
+    <!-- Native classes -->
+    <source-file src="src/android/com/phemium/sipvideocall/SipVideoCall.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/AlarmReceiver.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/CallManager.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/LinphoneManager.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/UIThreadDispatcher.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/NetworkManager.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/Utils.java" target-dir="src/com/phemium/sipvideocall/" />
+    <source-file src="src/android/com/phemium/sipvideocall/activities/CallInitActivity.java" target-dir="src/com/phemium/sipvideocall/activities/" />
+    <source-file src="src/android/com/phemium/sipvideocall/activities/SipVideoCallActivity.java" target-dir="src/com/phemium/sipvideocall/activities/" />
+    <source-file src="src/android/com/phemium/sipvideocall/constant/Constant.java" target-dir="src/com/phemium/sipvideocall/constant/" />
+    <source-file src="src/android/com/phemium/sipvideocall/data/CallData.java" target-dir="src/com/phemium/sipvideocall/data/" />
+    <source-file src="src/android/com/phemium/sipvideocall/data/LanguageResource.java" target-dir="src/com/phemium/sipvideocall/data/" />
+    <source-file src="src/android/com/phemium/sipvideocall/listener/CallManagerListener.java" target-dir="src/com/phemium/sipvideocall/listener/" />
+    <source-file src="src/android/com/phemium/sipvideocall/listener/LinphoneManagerListener.java" target-dir="src/com/phemium/sipvideocall/listener/" />
+    <source-file src="src/android/com/phemium/sipvideocall/listener/OnSwipeTouchListener.java" target-dir="src/com/phemium/sipvideocall/listener/" />
+    <source-file src="src/android/com/phemium/sipvideocall/receiver/NetworkReceiver.java" target-dir="src/com/phemium/sipvideocall/receiver/" />
+    <source-file src="src/android/com/phemium/sipvideocall/views/CustomGLSurfaceView.java" target-dir="src/com/phemium/sipvideocall/views/" />
+    <source-file src="src/android/com/phemium/sipvideocall/views/OverlayView.java" target-dir="src/com/phemium/sipvideocall/views/" />
+    <source-file src="src/android/com/phemium/sipvideocall/views/OverlayCreator.java" target-dir="src/com/phemium/sipvideocall/views/" />
+    <source-file src="src/android/com/phemium/sipvideocall/listener/BandwidthListener.java" target-dir="src/com/phemium/sipvideocall/listener/" />
+    <source-file src="src/android/com/phemium/sipvideocall/views/SignalView.java" target-dir="src/com/phemium/sipvideocall/views/" />
+
+    <!-- Resources -->
+    <resource-file src="src/android/res/layout-land/activity_call.xml" target="res/layout-land/activity_call.xml" />
+    <resource-file src="src/android/res/layout-port/activity_call.xml" target="res/layout-port/activity_call.xml" />
+    <resource-file src="src/android/res/layout-land/activity_connecting.xml" target="res/layout-land/activity_connecting.xml" />
+    <resource-file src="src/android/res/layout-port/activity_connecting.xml" target="res/layout-port/activity_connecting.xml" />
+    <resource-file src="src/android/res/layout/overlay_view.xml" target="res/layout/overlay_view.xml" />
+
+    <resource-file src="src/android/res/drawable-hdpi/calling_mute.png" target="res/drawable-hdpi/calling_mute.png" />
+    <resource-file src="src/android/res/drawable-hdpi/calling_muted.png" target="res/drawable-hdpi/calling_muted.png" />
+    <resource-file src="src/android/res/drawable-hdpi/calling_speaker.png" target="res/drawable-hdpi/calling_speaker.png" />
+    <resource-file src="src/android/res/drawable-hdpi/calling_speaker_muted.png" target="res/drawable-hdpi/calling_speaker_muted.png" />
+    <resource-file src="src/android/res/drawable-hdpi/doctor_example.png" target="res/drawable-hdpi/doctor_example.png" />
+    <resource-file src="src/android/res/drawable-hdpi/end_call.png" target="res/drawable-hdpi/end_call.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_close.png" target="res/drawable-hdpi/videocall_close.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_mute_camera.png" target="res/drawable-hdpi/videocall_mute_camera.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_recordinglayout_close.png" target="res/drawable-hdpi/videocall_recordinglayout_close.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_recordinglayout_info.png" target="res/drawable-hdpi/videocall_recordinglayout_info.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_status_mute.png" target="res/drawable-hdpi/videocall_status_mute.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_switch_camera.png" target="res/drawable-hdpi/videocall_switch_camera.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_unmute.png" target="res/drawable-hdpi/videocall_unmute.png" />
+    <resource-file src="src/android/res/drawable-hdpi/videocall_unmute_camera.png" target="res/drawable-hdpi/videocall_unmute_camera.png" />
+    <resource-file src="src/android/res/drawable-hdpi/chat.png" target="res/drawable-hdpi/chat.png" />
+
+    <resource-file src="src/android/res/drawable/shapecount.xml" target="res/drawable/shapecount.xml" />
+    <resource-file src="src/android/res/drawable/avatar_background.xml" target="res/drawable/avatar_background.xml" />
+    <resource-file src="src/android/res/drawable/local_video_background.xml" target="res/drawable/local_video_background.xml" />
+    <resource-file src="src/android/res/drawable/overlay_video_background.xml" target="res/drawable/overlay_video_background.xml" />
+    <resource-file src="src/android/res/drawable/videocall_gradient_bottom_banner.xml" target="res/drawable/videocall_gradient_bottom_banner.xml" />
+    <resource-file src="src/android/res/drawable/videocall_gradient_top_banner.xml" target="res/drawable/videocall_gradient_top_banner.xml" />
+
+    <!-- Raw Audio Files -->
+    <resource-file src="src/android/res/raw/calling.wav" target="res/raw/calling.wav" />
+    <resource-file src="src/android/res/raw/orig.wav" target="res/raw/orig.wav" />
+    <resource-file src="src/android/res/raw/ringback.wav" target="res/raw/ringback.wav" />
+    <resource-file src="src/android/res/raw/incoming_chat.wav" target="res/raw/incoming_chat.wav" />
+    <resource-file src="src/android/res/raw/rootca.pem" target="res/raw/rootca.pem" />
+
+    <!-- fonts files -->
+    <resource-file src="src/android/res/fonts/ufonts.com_gotham-bold.ttf" target="assets/fonts/ufonts.com_gotham-bold.ttf" />
+    <resource-file src="src/android/res/fonts/ufonts.com_gotham-light.ttf" target="assets/fonts/ufonts.com_gotham-light.ttf" />
+    
+    <!-- language files -->
+    <resource-file src="src/android/res/langs/en.json" target="assets/langs/en.json" />
+    <resource-file src="src/android/res/langs/es.json" target="assets/langs/es.json" />
+    <resource-file src="src/android/res/langs/pl.json" target="assets/langs/pl.json" />
+    <resource-file src="src/android/res/langs/fr.json" target="assets/langs/fr.json" />
+
+    <framework src="com.android.support:design:27.0.1" />
+    <framework src="com.android.support:appcompat-v7:27.0.1" />
+    <framework src="com.squareup.okhttp3:okhttp:3.8.0" />
+	
+    <framework src="src/android/videocall.gradle" custom="true" type="gradleReference" />
+  </platform>
+
+
+  <!-- IOS -->
+  <platform name="ios">
+
+    <!-- iOS webRTC -->
+    <dependency id="cordova-plugin-iosrtc" url="https://github.com/BasqueVoIPMafia/cordova-plugin-iosrtc.git#4.0.2" />
+    <hook type="after_prepare" src="hooks/iosrtc-swift-support.js" />
+    <hook type="after_prepare" src="bin/ios/edit_pbxproj.js" />
+
+    <hook type="after_plugin_install" src="bin/ios/addEmbedded.js" />
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="SipVideoCall">
+        <param name="ios-package" value="SipVideoCall" />
+      </feature>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+      <string>Videocall</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+        <string>Call</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>audio</string>
+        <string>voip</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="CFBundleLocalizations">
+      <array>
+        <string>en</string>
+        <string>es</string>
+        <string>pl</string>
+        <string>fr</string>
+      </array>
+    </config-file>
+
+    <!-- Source -->
+    <header-file src="src/ios/SipVideoCall.h" />
+    <source-file src="src/ios/SipVideoCall.m" />
+    <header-file src="src/ios/LinPhoneManager.h" />
+    <source-file src="src/ios/LinPhoneManager.m" />
+    <header-file src="src/ios/Utils.h" />
+    <source-file src="src/ios/Utils.m" />
+    <header-file src="src/ios/LinphoneVideoWindowViewController.h" />
+    <source-file src="src/ios/LinphoneVideoWindowViewController.m" />
+    <header-file src="src/ios/AppDelegate+callprovider.h" />
+    <source-file src="src/ios/AppDelegate+callprovider.m" />
+    <header-file src="src/ios/CallData.h" />
+    <source-file src="src/ios/CallData.m" />
+    <header-file src="src/ios/CallManager.h" />
+    <source-file src="src/ios/CallManager.m" />
+    <header-file src="src/ios/ControlContainerView.h" />
+    <source-file src="src/ios/ControlContainerView.m" />
+    <header-file src="src/ios/FileUtil.h" />
+    <source-file src="src/ios/FileUtil.m" />
+    <header-file src="src/ios/LinphoneInitViewController.h" />
+    <source-file src="src/ios/LinphoneInitViewController.m" />
+    <header-file src="src/ios/PublicData.h" />
+    <source-file src="src/ios/PublicData.m" />
+    <header-file src="src/ios/StringUtil.h" />
+    <source-file src="src/ios/StringUtil.m" />
+    <header-file src="src/ios/CommonUtil.h" />
+    <source-file src="src/ios/CommonUtil.m" />
+    <header-file src="src/ios/UIColor+Hex.h" />
+    <source-file src="src/ios/UIColor+Hex.m" />
+    <header-file src="src/ios/UIView+Toast.h" />
+    <source-file src="src/ios/UIView+Toast.m" />
+    <header-file src="src/ios/UIButton+Badge.h" />
+    <source-file src="src/ios/UIButton+Badge.m" />
+    <header-file src="src/ios/VideoContainerView.h" />
+    <source-file src="src/ios/VideoContainerView.m" />
+    <header-file src="src/ios/ProviderDelegate.h" />
+    <source-file src="src/ios/ProviderDelegate.m" />
+    <header-file src="src/ios/Constant.h" />
+    <source-file src="src/ios/Constant.m" />
+    <header-file src="src/ios/LinphoneLogUtil.h" />
+    <source-file src="src/ios/LinphoneLogUtil.m" />
+    <header-file src="src/ios/Reachability.h" />
+    <source-file src="src/ios/Reachability.m" />
+    <header-file src="src/ios/ReachabilityManager.h" />
+    <source-file src="src/ios/ReachabilityManager.m" />
+    <header-file src="src/ios/EFSignalBarView.h" />
+    <source-file src="src/ios/EFSignalBarView.m" />
+    <header-file src="src/ios/Audio/AudioHelper.h" />
+    <source-file src="src/ios/Audio/AudioHelper.m" />
+    <header-file src="src/ios/Audio/AudioController.h" />
+    <source-file src="src/ios/Audio/AudioController.mm" />
+    <header-file src="src/ios/Audio/CADebugMacros.h" />
+    <source-file src="src/ios/Audio/CADebugMacros.cpp" />
+    <header-file src="src/ios/Audio/CAStreamBasicDescription.h" />
+    <source-file src="src/ios/Audio/CAStreamBasicDescription.cpp" />
+    <header-file src="src/ios/Audio/CAXException.h" />
+    <source-file src="src/ios/Audio/CAXException.cpp" />
+    <header-file src="src/ios/Audio/CAMath.h" />
+
+    <!-- UI -->
+    <resource-file src="src/ios/LinphoneVideoWindowViewController.xib" />
+    <resource-file src="src/ios/LinphoneInitViewControllerPortrait.xib" />
+    <resource-file src="src/ios/LinphoneInitViewControllerLandscape.xib" />
+
+    <!-- Apple Libs -->
+    <framework src="libstdc++.tbd" />
+    <framework src="libstdc++.6.tbd" />
+    <framework src="libc++.tbd" />
+    <framework src="libc++abi.tbd" />
+    <framework src="libc++.1.tbd" />
+    <framework src="libresolv.tbd" />
+    <framework src="libsqlite3.tbd" />
+    <framework src="libxml2.tbd" />
+    <framework src="libz.tbd" />
+    <framework src="libiconv.tbd" />
+    <framework src="OpenGLES.framework" />
+    <framework src="CFNetwork.framework" />
+    <framework src="CoreVideo.framework" />
+    <framework src="QuartzCore.framework" />
+    <framework src="AudioToolbox.framework" />
+    <framework src="VideoToolbox.framework" />
+    <framework src="SystemConfiguration.framework" />
+
+    <!-- Config -->
+    <!--
+    <resource-file src="src/ios/resources/linphonerc" />
+    <resource-file src="src/ios/resources/linphonerc~ipad" />
+    <resource-file src="src/ios/resources/linphonerc-factory" />
+    <resource-file src="src/ios/resources/linphonerc-factory~ipad" />
+    -->
+
+    <resource-file src="src/ios/resources/rootca.pem" />
+
+    <!-- Sounds -->
+    <resource-file src="src/ios/sounds/orig.wav" />
+    <resource-file src="src/ios/sounds/ringback.wav" />
+    <resource-file src="src/ios/sounds/calling.wav" />
+    <resource-file src="src/ios/sounds/incoming_chat.wav" />
+
+    <!-- Fonts -->
+    <resource-file src="src/ios/fonts/ufonts.com_gotham-bold.ttf" />
+    <resource-file src="src/ios/fonts/ufonts.com_gotham-light.ttf" />
+
+    <!-- Images -->
+    <resource-file src="src/ios/images/doctor_example.png" />
+    <resource-file src="src/ios/images/end-call.png" />
+    <resource-file src="src/ios/images/mute.png" />
+    <resource-file src="src/ios/images/muted.png" />
+    <resource-file src="src/ios/images/speaker.png" />
+    <resource-file src="src/ios/images/speaker-muted.png" />
+    <resource-file src="src/ios/images/status-muted.png" />
+    <resource-file src="src/ios/images/status-muted-camera.png" />
+    <resource-file src="src/ios/images/videocall-close.png" />
+    <resource-file src="src/ios/images/videocall-mute.png" />
+    <resource-file src="src/ios/images/videocall-mute-camera.png" />
+    <resource-file src="src/ios/images/videocall-record-close.png" />
+    <resource-file src="src/ios/images/videocall-record-info.png" />
+    <resource-file src="src/ios/images/videocall-switch-camera.png" />
+    <resource-file src="src/ios/images/videocall-unmute.png" />
+    <resource-file src="src/ios/images/videocall-unmute-camera.png" />
+    <resource-file src="src/ios/images/chat.png" />
+
+    <!-- Strings -->
+    <resource-file src="src/ios/LocalizableStrings.bundle" />
+
+    <!-- ************************ -->
+    <!-- Linphone SDK libs (lib) -->
+    <!-- ************************ -->
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libantlr3c.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbcg729.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbcmatroska2.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbcunit.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbelcard.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbellesip.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbelr.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libbzrtp.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libgsm.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libmbedcrypto.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libmbedtls.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libmbedx509.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libopus.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libspeex.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libspeexdsp.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libsrtp.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libturbojpeg.a" framework="true" />
+    <source-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/lib/libvpx.a" framework="true" />
+
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/bctoolbox.framework" custom="true" embed="true"/>
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/bctoolbox-tester.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/linphone.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/linphonetester.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/mediastreamer_base.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/mediastreamer_voip.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/msamr.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/mscodec2.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/msopenh264.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/mssilk.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/mswebrtc.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/msx264.framework" custom="true" embed="true" />
+    <framework src="src/ios/vendor/liblinphone-sdk/apple-darwin/Frameworks/ortp.framework" custom="true" embed="true" />
+
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3baserecognizer.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3basetree.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3basetreeadaptor.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3bitset.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3collections.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3commontoken.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3commontree.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3commontreeadaptor.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3commontreenodestream.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3config.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3convertutf.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3cyclicdfa.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3debugeventlistener.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3defs.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3encodings.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3errors.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3exception.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3filestream.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3input.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3interfaces.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3intstream.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3lexer.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3memory.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3parser.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3parsetree.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3recognizersharedstate.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3rewritestreams.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3string.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3tokenstream.h" target-dir="./liblinphone-sdk/apple-darwin" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/antlr3treeparser.h" target-dir="./liblinphone-sdk/apple-darwin" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bcg729/decoder.h" target-dir="./liblinphone-sdk/apple-darwin/bcg729" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bcg729/encoder.h" target-dir="./liblinphone-sdk/apple-darwin/bcg729" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/crypto.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/defs.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/exception.hh" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/list.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/logging.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/map.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/parser.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/port.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/regex.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/tester.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/vconnect.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bctoolbox/vfs.h" target-dir="./liblinphone-sdk/apple-darwin/bctoolbox" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/Automated.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/Basic.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/BCUnit_intl.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/BCUnit.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/CUError.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/MyMem.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/TestDB.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/TestRun.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/BCUnit/Util.h" target-dir="./liblinphone-sdk/apple-darwin/BCUnit" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_addressing.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_calendar.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_communication.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_explanatory.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_general.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_generic.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_geographical.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_identification.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_organizational.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_params.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_parser.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_property.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_rfc6474.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_security.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard_utils.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/belcard.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belcard/vcard_grammar.hpp" target-dir="./liblinphone-sdk/apple-darwin/belcard" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/auth-helper.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/belle-sdp.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/belle-sip.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/bodyhandler.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/defs.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/dialog.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/dict.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/generic-uri.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/headers.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/http-listener.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/http-message.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/http-provider.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/list.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/listener.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/listeningpoint.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/mainloop.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/message.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/object.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/parameters.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/provider.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/refresher.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/resolver.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/sip-uri.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/sipstack.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/transaction.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/types.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/utils.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belle-sip/wakelock.h" target-dir="./liblinphone-sdk/apple-darwin/belle-sip" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belr/abnf.h" target-dir="./liblinphone-sdk/apple-darwin/belr" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belr/belr.h" target-dir="./liblinphone-sdk/apple-darwin/belr" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belr/grammarbuilder.h" target-dir="./liblinphone-sdk/apple-darwin/belr" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/belr/parser.h" target-dir="./liblinphone-sdk/apple-darwin/belr" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/bzrtp/bzrtp.h" target-dir="./liblinphone-sdk/apple-darwin/bzrtp" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/array/array.h" target-dir="./liblinphone-sdk/apple-darwin/corec/array" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/banned.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/confhelper.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/config.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/corec.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/err.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helper.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/charconvert/charconvert.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/charconvert" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/date/date.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/date" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/file/file.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/file" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/file/streams.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/file" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/md5/md5.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/md5" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/buffer.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/dataheap.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/hotkey.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/nodelookup.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/parser.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/strtab.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/strtypes.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/parser/urlpart.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/parser" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/helpers/system/ccsystem.h" target-dir="./liblinphone-sdk/apple-darwin/corec/helpers/system" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/memalloc.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/memheap.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/multithread/multithread.h" target-dir="./liblinphone-sdk/apple-darwin/corec/multithread" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/node/node.h" target-dir="./liblinphone-sdk/apple-darwin/corec/node" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/node/node_internal.h" target-dir="./liblinphone-sdk/apple-darwin/corec/node" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/node/nodebase.h" target-dir="./liblinphone-sdk/apple-darwin/corec/node" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/node/nodetools.h" target-dir="./liblinphone-sdk/apple-darwin/corec/node" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/node/nodetree.h" target-dir="./liblinphone-sdk/apple-darwin/corec/node" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/portab.h" target-dir="./liblinphone-sdk/apple-darwin/corec" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/corec/str/str.h" target-dir="./liblinphone-sdk/apple-darwin/corec/str" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ebml/ebml.h" target-dir="./liblinphone-sdk/apple-darwin/ebml" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ebml/ebml_internal.h" target-dir="./liblinphone-sdk/apple-darwin/ebml" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/gsm/gsm.h" target-dir="./liblinphone-sdk/apple-darwin/gsm" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/account_creator_service.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/account_creator.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/address.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/auth_info.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/buffer.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/call_log.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/call_params.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/call_stats.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/call.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/callbacks.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/chat.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/conference.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/contactprovider.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/content.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/core_utils.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/core.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/defs.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/dictionary.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/error_info.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/event.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/factory.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/friend.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/friendlist.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/headers.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/im_encryption_engine.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/im_notif_policy.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/info_message.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/ldapprovider.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/liblinphone_tester.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphone_proxy_config.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphone_tunnel.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphonecore.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphonecore_utils.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphonefriend.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/linphonepresence.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/logging.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/lpconfig.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/misc.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/nat_policy.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/payload_type.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/player.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/presence.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/proxy_config.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/ringtoneplayer.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/sipsetup.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/tunnel.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/types.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/vcard.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/video_definition.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/wrapper_utils.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/linphone/xmlrpc.h" target-dir="./liblinphone-sdk/apple-darwin/linphone" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/matroska/matroska.h" target-dir="./liblinphone-sdk/apple-darwin/matroska" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/matroska/matroska_internal.h" target-dir="./liblinphone-sdk/apple-darwin/matroska" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/matroska/matroska_sem.h" target-dir="./liblinphone-sdk/apple-darwin/matroska" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/aes.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/aesni.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/arc4.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/asn1.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/asn1write.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/base64.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/bignum.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/blowfish.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/bn_mul.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/camellia.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ccm.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/certs.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/check_config.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/cipher.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/cipher_internal.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/cmac.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/compat-1.3.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/config.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ctr_drbg.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/debug.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/des.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/dhm.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ecdh.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ecdsa.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ecjpake.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ecp.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/entropy.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/entropy_poll.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/error.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/gcm.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/havege.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/hmac_drbg.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/md.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/md2.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/md4.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/md5.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/md_internal.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/memory_buffer_alloc.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/net.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/net_sockets.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/oid.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/padlock.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pem.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pk.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pk_internal.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pkcs11.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pkcs12.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/pkcs5.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/platform_time.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/platform.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ripemd160.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/rsa.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/sha1.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/sha256.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/sha512.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl_cache.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl_ciphersuites.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl_cookie.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl_internal.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/ssl_ticket.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/threading.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/timing.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/version.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/x509.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/x509_crl.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/x509_crt.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/x509_csr.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mbedtls/xtea.h" target-dir="./liblinphone-sdk/apple-darwin/mbedtls" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/allfilters.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/bitratecontrol.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/bits_rw.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/devices.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/dsptools.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/dtls_srtp.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/dtmfgen.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/flowcontrol.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/formats.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/ice.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mediastream.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/ms_srtp.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msasync.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msaudiomixer.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mschanadapter.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mscodecutils.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mscommon.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msconference.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msequalizer.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mseventqueue.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msextdisplay.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msfactory.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msfileplayer.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msfilerec.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msfilter.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msgenericplc.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msinterfaces.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msitc.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msjava.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msjpegwriter.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msmediaplayer.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msogl_functions.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msogl.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mspcapfileplayer.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msqueue.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msrtp.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msrtt4103.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mssndcard.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mstee.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msticker.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mstonedetector.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msudp.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msutils.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msv4l.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msvaddtx.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msvideo.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msvideoout.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msvideopresets.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/msvolume.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/mswebcam.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/qualityindicator.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/rfc3984.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/stun.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/upnp_igd.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/x11_helper.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/mediastreamer2/zrtp.h" target-dir="./liblinphone-sdk/apple-darwin/mediastreamer2" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/opus/opus.h" target-dir="./liblinphone-sdk/apple-darwin/opus" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/opus/opus_custom.h" target-dir="./liblinphone-sdk/apple-darwin/opus" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/opus/opus_defines.h" target-dir="./liblinphone-sdk/apple-darwin/opus" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/opus/opus_multistream.h" target-dir="./liblinphone-sdk/apple-darwin/opus" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/opus/opus_types.h" target-dir="./liblinphone-sdk/apple-darwin/opus" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/b64.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/event.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/logging.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/ortp.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/payloadtype.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/port.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/rtcp.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/rtp.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/rtpprofile.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/rtpsession.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/rtpsignaltable.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/sessionset.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/str_utils.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/telephonyevents.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/ortp/utils.h" target-dir="./liblinphone-sdk/apple-darwin/ortp" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_bits.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_buffer.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_callbacks.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_config_types.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_echo.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_header.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_jitter.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_preprocess.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_resampler.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_stereo.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/speex/speex_types.h" target-dir="./liblinphone-sdk/apple-darwin/speex" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/aes.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/aes_cbc.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/aes_icm.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/alloc.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/auth.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/cipher.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/config.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/crypto.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/crypto_kernel.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/crypto_math.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/crypto_types.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/cryptoalg.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/datatypes.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/ekt.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/err.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/getopt_s.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/gf2_8.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/hmac.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/integers.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/kernel_compat.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/key.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/null_auth.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/null_cipher.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/prng.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/rand_source.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/rdb.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/rdbx.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/rtp.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/rtp_priv.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/sha1.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/srtp.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/srtp_priv.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/stat.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/ut_sim.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/srtp/xfm.h" target-dir="./liblinphone-sdk/apple-darwin/srtp" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/turbojpeg.h" target-dir="./liblinphone-sdk/apple-darwin" />
+
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vp8.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vp8cx.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vp8dx.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_codec.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_decoder.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_encoder.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_frame_buffer.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_image.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+    <header-file src="src/ios/vendor/liblinphone-sdk/apple-darwin/include/vpx/vpx_integer.h" target-dir="./liblinphone-sdk/apple-darwin/vpx" />
+
+
+  </platform>
+
+</plugin>

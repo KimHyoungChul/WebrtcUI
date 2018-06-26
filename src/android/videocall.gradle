@@ -1,0 +1,35 @@
+ext.postBuildExtras = {
+
+	repositories {
+		mavenCentral()
+		jcenter()
+		flatDir {
+			dirs 'libs'
+		}
+	}
+
+	android {
+
+		compileOptions {
+			sourceCompatibility JavaVersion.VERSION_1_7
+			targetCompatibility JavaVersion.VERSION_1_7
+		}
+
+		allprojects {
+			compileOptions {
+				sourceCompatibility = JavaVersion.VERSION_1_7
+				targetCompatibility = JavaVersion.VERSION_1_7
+			}
+		}
+
+		dexOptions {
+			jumboMode = true
+		}
+
+	}
+
+	dependencies {
+		compile(name : 'liblinphone-android-sdk', ext : 'aar')
+	}
+
+}

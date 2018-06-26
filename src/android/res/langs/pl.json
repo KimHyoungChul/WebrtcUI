@@ -1,0 +1,12 @@
+[
+  {"connecting": "Podłączanie..."},
+  {"calling" : "Dzwoni..."},
+  {"calling_mute" : "Wycisz"},
+  {"calling_speaker" : "Głośnik"},
+  {"recording" : "Nagrywanie"},
+  {"registering": "Rejestrowanie..."},
+  {"establishing": "Nawiązywanie połączenia..."},
+  {"retrying": "Ponawianie połączenia..."},
+  {"ending": "Połączenie wychodzące..."},
+  {"low_signal_alert": "Występują problemy z połączeniem"}
+]

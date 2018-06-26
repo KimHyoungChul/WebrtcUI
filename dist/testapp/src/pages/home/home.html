@@ -1,0 +1,399 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Phemium Videocall test app
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="view">
+      <ion-segment-button value="general">
+        General
+      </ion-segment-button>
+
+      <ion-segment-button value="main-turn">
+        Turn 1
+      </ion-segment-button>
+
+      <ion-segment-button value="alternative-turn">
+        Turn 2
+      </ion-segment-button>
+
+      <ion-segment-button value="call-settings">
+        Call
+      </ion-segment-button>
+
+      <ion-segment-button value="gui-settings">
+        GUI
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div [ngSwitch]="view">
+
+    <!-- General Panel -->
+    <div *ngSwitchCase="'general'">
+
+      <!-- Environment -->
+      <ion-item>
+        <ion-label stacked>Environment</ion-label>
+        <ion-select [(ngModel)]="data.environment">
+          <ion-option value="devel">Devel</ion-option>
+          <ion-option value="dev">Dev</ion-option>
+          <ion-option value="integra">Integra</ion-option>
+          <ion-option value="prerelease">Prerelease</ion-option>
+          <ion-option value="live">Live</ion-option>
+          <ion-option value="luxmed_dev">Luxmed Dev</ion-option>
+          <ion-option value="luxmed_prerelease">Luxmed Prerelease</ion-option>
+          <ion-option value="luxmed_live">Luxmed Live</ion-option>
+          <ion-option value="sip_comdev">Sip ComDev</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- App name -->
+      <ion-item>
+        <ion-label stacked>App Name</ion-label>
+        <ion-input [(ngModel)]="data.appName" type="text" placeholder="APP"></ion-input>
+      </ion-item>
+
+      <!-- Show SIP config -->
+      <ion-item>
+        <ion-label>Show SIP Config</ion-label>
+        <ion-checkbox [(ngModel)]="show_sip_config" checked="show_sip_config"></ion-checkbox>
+      </ion-item>
+
+      <!-- From Sip Address -->
+      <ion-item *ngIf="show_sip_config">
+        <ion-label stacked>From SIP Address</ion-label>
+        <ion-input [(ngModel)]="data.sipAddress" type="text" placeholder="sip:000000@domain.com"></ion-input>
+      </ion-item>
+
+      <!-- From SIP Password -->
+      <ion-item *ngIf="show_sip_config">
+        <ion-label stacked>From SIP Password</ion-label>
+        <ion-input [(ngModel)]="data.sipPassword" type="text" placeholder="1234567890"></ion-input>
+      </ion-item>
+
+      <!-- SIP proxy with Transport -->
+      <ion-item *ngIf="show_sip_config">
+        <ion-label stacked>SIP proxy with Transport</ion-label>
+        <ion-input [(ngModel)]="data.sipProxyWithTransport" type="text" placeholder="127.0.0.1:8080?transport=tcp"></ion-input>
+      </ion-item>
+
+      <!-- To Sip Address -->
+      <ion-item *ngIf="show_sip_config">
+        <ion-label stacked>To SIP Address</ion-label>
+        <ion-input [(ngModel)]="data.outgoingSipAddress" type="text" placeholder="sip:000000@domain.com"></ion-input>
+      </ion-item>
+
+      <!-- Use WebRTC -->
+      <ion-item>
+        <ion-label>Use WebRTC</ion-label>
+        <ion-toggle [(ngModel)]="data.useWebrtc"></ion-toggle>
+      </ion-item>
+
+      <!-- Debug -->
+      <ion-item>
+        <ion-label>Debug</ion-label>
+        <ion-toggle [(ngModel)]="data.extraLogMode"></ion-toggle>
+      </ion-item>
+
+      <!-- Audio Call -->
+      <ion-item>
+        <ion-label>Only Audio Call</ion-label>
+        <ion-toggle [(ngModel)]="data.onlyAudioCall"></ion-toggle>
+      </ion-item>
+
+    </div>
+
+
+    <!-- Main Turn Server section-->
+    <div *ngSwitchCase="'main-turn'">
+
+      <!-- Use Turn Server -->
+      <ion-item>
+        <ion-label>Use Turn Server</ion-label>
+        <ion-checkbox [(ngModel)]="data.useTurnServer" checked="data.useTurnServer"></ion-checkbox>
+      </ion-item>
+
+      <!-- Turn Server -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >Turn Server URL</ion-label>
+        <ion-input [(ngModel)]="data.turnServer" type="text"></ion-input>
+      </ion-item>
+
+      <!-- ICE Server 1 -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >ICE Server URL 1</ion-label>
+        <ion-input [(ngModel)]="data.iceServer1URL1" type="text"></ion-input>
+      </ion-item>
+
+      <!-- ICE Server 2-->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >ICE Server URL 2</ion-label>
+        <ion-input [(ngModel)]="data.iceServer1URL2" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Realm -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >Turn Realm</ion-label>
+        <ion-input [(ngModel)]="data.turnRealm" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Username -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >Turn Username</ion-label>
+        <ion-input [(ngModel)]="data.turnUsername" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Password -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >Turn Password</ion-label>
+        <ion-input [(ngModel)]="data.turnPassword" type="text"></ion-input>
+      </ion-item>
+    </div>
+
+
+    <!-- Alternative Turn Server cection-->
+    <div *ngSwitchCase="'alternative-turn'">
+
+      <!-- Use Turn Server (Alternative) -->
+      <ion-item>
+        <ion-label>Use Turn Server (Alternative)</ion-label>
+        <ion-checkbox [(ngModel)]="data.useTurnServer2" checked="data.useTurnServer2"></ion-checkbox>
+      </ion-item>
+
+      <!-- Turn Server (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer2">
+        <ion-label stacked >Turn Server URL (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.turnServer2" type="text"></ion-input>
+      </ion-item>
+
+      <!-- ICE Server 1 (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >ICE Server URL 1 (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.iceServer2URL1" type="text"></ion-input>
+      </ion-item>
+
+      <!-- ICE Server 2 (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer">
+        <ion-label stacked >ICE Server URL 2 (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.iceServer2URL2" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Realm (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer2">
+        <ion-label stacked >Turn Realm (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.turnRealm2" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Username (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer2">
+        <ion-label stacked >Turn Username (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.turnUsername2" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Turn Password (Alternative) -->
+      <ion-item *ngIf="data.useTurnServer2">
+        <ion-label stacked >Turn Username (Alternative)</ion-label>
+        <ion-input [(ngModel)]="data.turnUsername2" type="text"></ion-input>
+      </ion-item>
+    </div>
+
+
+    <!-- Custom Call Settings section-->
+    <div *ngSwitchCase="'call-settings'">
+
+      <!-- Customize call settings -->
+      <ion-item>
+        <ion-label>Customize Call Settings</ion-label>
+        <ion-checkbox [(ngModel)]="data.customCallSettings" checked="data.customCallSettings"></ion-checkbox>
+      </ion-item>
+
+      <!-- Download Bandwidth -->
+      <ion-item *ngIf="data.customCallSettings">
+        <ion-label stacked>Download Bandwidth</ion-label>
+        <ion-input [(ngModel)]="data.settingsDownloadBandwidth" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Upload Bandwidth -->
+      <ion-item *ngIf="data.customCallSettings">
+        <ion-label stacked>Upload Bandwidth</ion-label>
+        <ion-input [(ngModel)]="data.settingsUploadBandwidth" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Frame Rate -->
+      <ion-item *ngIf="data.customCallSettings">
+        <ion-label stacked>Frame Rate</ion-label>
+        <ion-input [(ngModel)]="data.settingsDownloadBandwidth" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Encryption Mode -->
+      <ion-item *ngIf="data.customCallSettings">
+        <ion-label stacked>Encryption Mode</ion-label>
+        <ion-select [(ngModel)]="data.settingsEncryption">
+          <ion-option value="none">NONE</ion-option>
+          <ion-option value="dtls">DTLS</ion-option>
+          <ion-option value="srtp">SRTP</ion-option>
+          <ion-option value="zrtp">ZRTP</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Video size -->
+      <ion-item *ngIf="data.customCallSettings">
+        <ion-label stacked>Video Size</ion-label>
+        <ion-select [(ngModel)]="data.settingsEncryption">
+          <ion-option value="qcif">QCIF (176x144)</ion-option>
+          <ion-option value="cif">CIF (352x288)</ion-option>
+          <ion-option value="qvga">QVGA (320x240)</ion-option>
+          <ion-option value="vga">VGA (640x480)</ion-option>
+          <ion-option value="720p">HD (1280x720)</ion-option>
+          <ion-option value="1080p">FULL HD (1920x1080)</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+
+    <!-- Custom GUI settings section-->
+    <div *ngSwitchCase="'gui-settings'">
+
+      <!-- GUI Setup -->
+      <ion-item>
+        <ion-label>Customize GUI</ion-label>
+        <ion-checkbox [(ngModel)]="data.customGUISettings" checked="data.customGUISettings"></ion-checkbox>
+      </ion-item>
+
+      <!-- Language -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Language</ion-label>
+        <ion-select [(ngModel)]="data.guiLanguage">
+          <ion-option value="ca">Català</ion-option>
+          <ion-option value="en">English</ion-option>
+          <ion-option value="es">Español</ion-option>
+          <ion-option value="fr">Français</ion-option>
+          <ion-option value="pl">Polski</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Main Color -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Main Color</ion-label>
+        <ion-input [(ngModel)]="data.guiMainColor" type="color"></ion-input>
+      </ion-item>
+
+      <!-- Secondary Color -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Secondary Color</ion-label>
+        <ion-input [(ngModel)]="data.guiSecondaryColor" type="color"></ion-input>
+      </ion-item>
+
+      <!-- Font Size -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Font Size</ion-label>
+        <ion-select [(ngModel)]="data.guiFontSize">
+          <ion-option value="15">15px</ion-option>
+          <ion-option value="17">17px</ion-option>
+          <ion-option value="20">20px</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Font Color -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Font Color</ion-label>
+        <ion-input [(ngModel)]="data.guiFontColor" type="color"></ion-input>
+      </ion-item>
+
+      <!-- Consultant Name -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Consultant Name</ion-label>
+        <ion-input [(ngModel)]="data.guiConsultantName" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Consultant Avatar URL -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Consultant Avatar URL</ion-label>
+        <ion-input [(ngModel)]="data.guiConsultantAvatarURL" type="url"></ion-input>
+      </ion-item>
+
+      <!-- Service Name -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Service Name</ion-label>
+        <ion-input [(ngModel)]="data.guiServiceName" type="text"></ion-input>
+      </ion-item>
+
+      <!-- Display Name Mode -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Display Name Mode</ion-label>
+        <ion-select [(ngModel)]="data.guiTopViewDisplayMode">
+          <ion-option value="always">Always</ion-option>
+          <ion-option value="never">Never</ion-option>
+          <ion-option value="atScreenTouch">At Screen Touch</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Call Recording Notification -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label>Call Recording Notification</ion-label>
+        <ion-toggle [(ngModel)]="data.guiCallRecordingNotificationVisible"></ion-toggle>
+      </ion-item>
+
+      <!-- Chat Mode -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Chat Mode</ion-label>
+        <ion-select [(ngModel)]="data.extraChat">
+          <ion-option value="WithChat">With Chat</ion-option>
+          <ion-option value="NoChat">No Chat</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Zoom Mode -->
+      <ion-item *ngIf="data.customGUISettings">
+        <ion-label stacked>Zoom Mode</ion-label>
+        <ion-select [(ngModel)]="data.extraZoom">
+          <ion-option value="zoom">Zoom</ion-option>
+          <ion-option value="origin">Original</ion-option>
+        </ion-select>
+      </ion-item>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar padding>
+
+    <!-- Reset button -->
+    <button (click)="set_environment_data()" *ngIf="!isCalling" ion-button block>Reset environment data</button>
+
+    <!-- Load Button -->
+    <button (click)="load()" *ngIf="!isLoaded" ion-button block color="secondary">{{ isLoading ? 'Loading...' : 'Load!' }}</button>
+
+
+    <!-- Call Button -->
+    <button (click)="call()" *ngIf="isLoaded && !isCalling" ion-button block color="secondary">Call!</button>
+
+
+    <!-- Incoming Call Button -->
+    <button (click)="incomingCall()" *ngIf="isLoaded && !isCalling" ion-button block color="secondary">Emulate Incoming Call</button>
+
+
+    <!-- Check Network Status Button -->
+    <button (click)="checkNetworkStatus()" *ngIf="isLoaded && !isCalling" ion-button block color="secondary">Check Network Status</button>
+
+
+    <!-- ReOpen Button -->
+    <button (click)="reOpen()" *ngIf="isCalling" ion-button block color="secondary">Reopen Call</button>
+
+
+    <!-- Simulate Chat Message Button -->
+    <button (click)="onChatMessageArrived()" *ngIf="isCalling" ion-button block color="secondary">Simulate Chat Message</button>
+
+
+    <!-- Call Button -->
+    <button (click)="hangUp()" *ngIf="isCalling" ion-button block color="danger">Hang Up!</button>
+  </ion-toolbar>
+</ion-footer>

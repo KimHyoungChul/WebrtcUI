@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="ufonts.com_gotham-bold.ttf">
+            <string>GothamBold</string>
+        </array>
+        <array key="ufonts.com_gotham-light.ttf">
+            <string>GothamLight</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LinphoneVideoWindowViewController">
+            <connections>
+                <outlet property="alertLabel" destination="gCJ-aB-no6" id="ZOr-Vq-V60"/>
+                <outlet property="alertMessage" destination="nPm-wG-agI" id="yPl-K8-U6L"/>
+                <outlet property="bottomCtrl" destination="4" id="EKw-mL-BLc"/>
+                <outlet property="chatBtn" destination="cpK-Ze-o3z" id="lby-YM-dpz"/>
+                <outlet property="closeButtonContainer" destination="Tdl-Kf-WO2" id="hmH-Xg-5Nh"/>
+                <outlet property="constraintControlsContainer" destination="msW-gj-RnF" id="bju-fA-hi0"/>
+                <outlet property="constraintTopViewTop" destination="Uc2-Tp-Vbt" id="xBr-ct-VVo"/>
+                <outlet property="containerView" destination="2" id="58"/>
+                <outlet property="controlsView" destination="4" id="61"/>
+                <outlet property="imgViewDisabledOutputDevice1" destination="oLt-Lx-eZI" id="GPW-dL-odI"/>
+                <outlet property="imgViewDisabledOutputDevice2" destination="xbQ-S9-zna" id="ngT-HD-Tt8"/>
+                <outlet property="lbRecordingNotification" destination="qUU-IK-dyB" id="H4l-SP-wQq"/>
+                <outlet property="lbUserName" destination="JGS-vD-gp3" id="Xf3-d6-XKx"/>
+                <outlet property="muteButtonContainer" destination="cdZ-EC-jps" id="7Gm-jB-5ft"/>
+                <outlet property="muteCameraButtonContainer" destination="abb-pQ-kG2" id="00n-2I-ngL"/>
+                <outlet property="portraitView" destination="130" id="134"/>
+                <outlet property="recordView" destination="Qbp-eU-6c0" id="g3K-3j-1fN"/>
+                <outlet property="remoteVideoView" destination="131" id="m4V-7p-cLP"/>
+                <outlet property="signalBarView" destination="8UP-eD-I7V" id="pxs-JR-SgR"/>
+                <outlet property="switchCameraButtonContainer" destination="uAy-MS-Yb3" id="I27-dF-ZLG"/>
+                <outlet property="timeLabel" destination="W4i-GC-XUN" id="TSR-qV-xJO"/>
+                <outlet property="topView" destination="c3C-0L-3v4" id="P4T-rg-OCf"/>
+                <outlet property="view" destination="2" id="63"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="2" userLabel="containerView">
+            <rect key="frame" x="0.0" y="0.0" width="384" height="648"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="130" userLabel="Video">
+                    <rect key="frame" x="0.0" y="0.0" width="384" height="648"/>
+                    <subviews>
+                        <view tag="2" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="131" userLabel="RemoteVideo" customClass="VideoContainerView">
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="648"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" notEnabled="YES"/>
+                            </accessibility>
+                            <gestureRecognizers/>
+                        </view>
+                        <view tag="1" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="132" userLabel="LocalVideo">
+                            <rect key="frame" x="260" y="450" width="100" height="110"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" notEnabled="YES"/>
+                            </accessibility>
+                            <gestureRecognizers/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                    </accessibility>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8UP-eD-I7V" customClass="EFSignalBarView">
+                    <rect key="frame" x="0.0" y="70" width="40" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Zaw-sA-Rcs"/>
+                        <constraint firstAttribute="height" constant="30" id="sjq-gQ-eAg"/>
+                    </constraints>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPm-wG-agI" userLabel="Alert">
+                    <rect key="frame" x="50" y="150" width="284" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are problems with Network." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCJ-aB-no6">
+                            <rect key="frame" x="20" y="16" width="244" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="0.75232769691780821" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="gCJ-aB-no6" firstAttribute="centerX" secondItem="nPm-wG-agI" secondAttribute="centerX" id="GL6-Ce-4Iy"/>
+                        <constraint firstItem="gCJ-aB-no6" firstAttribute="leading" secondItem="nPm-wG-agI" secondAttribute="leading" constant="20" id="T4g-mQ-taM"/>
+                        <constraint firstItem="gCJ-aB-no6" firstAttribute="centerY" secondItem="nPm-wG-agI" secondAttribute="centerY" id="Z2E-xc-U81"/>
+                        <constraint firstAttribute="height" constant="50" id="b6k-kc-dr9"/>
+                        <constraint firstAttribute="trailing" secondItem="gCJ-aB-no6" secondAttribute="trailing" constant="20" id="wny-Uq-d72"/>
+                    </constraints>
+                </view>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbp-eU-6c0" userLabel="RecordingView">
+                    <rect key="frame" x="0.0" y="25" width="384" height="30"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-record-info.png" translatesAutoresizingMaskIntoConstraints="NO" id="hbc-3b-lI4" userLabel="Icon">
+                            <rect key="frame" x="129.5" y="7" width="17" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="17" id="glj-RB-3FB"/>
+                                <constraint firstAttribute="height" constant="17" id="jz7-DP-mAw"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUU-IK-dyB" userLabel="Recording Notification Text">
+                            <rect key="frame" x="156.5" y="9.5" width="71.5" height="12.5"/>
+                            <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbp-ye-dvz">
+                            <rect key="frame" x="357" y="7" width="17" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="17" id="Myh-Sx-wrY"/>
+                                <constraint firstAttribute="height" constant="17" id="shY-CE-xAJ"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="videocall-record-close.png"/>
+                            <connections>
+                                <action selector="onRecordingClose:" destination="-1" eventType="touchUpInside" id="IY2-bb-XiK"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.49803921568627452" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="hbc-3b-lI4" firstAttribute="centerY" secondItem="Qbp-eU-6c0" secondAttribute="centerY" id="8cb-BZ-gqM"/>
+                        <constraint firstAttribute="height" constant="30" id="MNR-aQ-otF"/>
+                        <constraint firstItem="zbp-ye-dvz" firstAttribute="trailing" secondItem="Qbp-eU-6c0" secondAttribute="trailing" constant="-10" id="NkZ-gv-QqW"/>
+                        <constraint firstItem="qUU-IK-dyB" firstAttribute="centerY" secondItem="Qbp-eU-6c0" secondAttribute="centerY" id="VKe-65-0kn"/>
+                        <constraint firstItem="qUU-IK-dyB" firstAttribute="centerX" secondItem="Qbp-eU-6c0" secondAttribute="centerX" id="bDH-Ye-qjX"/>
+                        <constraint firstItem="zbp-ye-dvz" firstAttribute="centerY" secondItem="Qbp-eU-6c0" secondAttribute="centerY" id="o0a-NH-7hl"/>
+                        <constraint firstItem="hbc-3b-lI4" firstAttribute="trailing" secondItem="qUU-IK-dyB" secondAttribute="leading" constant="-10" id="wn7-94-fUt"/>
+                        <constraint firstItem="qUU-IK-dyB" firstAttribute="width" relation="lessThanOrEqual" secondItem="Qbp-eU-6c0" secondAttribute="width" multiplier="7/10" id="xcP-0c-zBK"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3C-0L-3v4" userLabel="TopView">
+                    <rect key="frame" x="0.0" y="70" width="384" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-vD-gp3" userLabel="Name">
+                            <rect key="frame" x="65" y="0.0" width="254" height="15.5"/>
+                            <fontDescription key="fontDescription" name="GothamBold" family="Gotham Bold" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W4i-GC-XUN" userLabel="Time">
+                            <rect key="frame" x="171.5" y="25.5" width="41.5" height="15.5"/>
+                            <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="JGS-vD-gp3" firstAttribute="leading" secondItem="c3C-0L-3v4" secondAttribute="leading" constant="65" id="LAn-cj-yek"/>
+                        <constraint firstItem="W4i-GC-XUN" firstAttribute="top" secondItem="JGS-vD-gp3" secondAttribute="bottom" constant="10" id="NzQ-Ct-jN7"/>
+                        <constraint firstAttribute="height" constant="40" id="RHy-AK-POK"/>
+                        <constraint firstItem="JGS-vD-gp3" firstAttribute="top" secondItem="c3C-0L-3v4" secondAttribute="top" id="S5W-mF-89b"/>
+                        <constraint firstItem="W4i-GC-XUN" firstAttribute="centerX" secondItem="c3C-0L-3v4" secondAttribute="centerX" id="YMs-6d-Q0r"/>
+                        <constraint firstItem="JGS-vD-gp3" firstAttribute="centerX" secondItem="c3C-0L-3v4" secondAttribute="centerX" id="yMz-xo-sle"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpK-Ze-o3z" userLabel="Chat Btn">
+                    <rect key="frame" x="336" y="70" width="30" height="28"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="J6C-AE-DGg"/>
+                        <constraint firstAttribute="height" constant="28" id="sqe-n3-zBU"/>
+                    </constraints>
+                    <state key="normal" image="chat.png"/>
+                    <connections>
+                        <action selector="goTextChat:" destination="-1" eventType="touchUpInside" id="s9s-yQ-r5F"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="status-muted.png" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-Lx-eZI" userLabel="DisabledFunction1">
+                    <rect key="frame" x="63" y="590" width="18" height="26"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="status-muted-camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="xbQ-S9-zna" userLabel="DisabledFunction2">
+                    <rect key="frame" x="138" y="591" width="28" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4" userLabel="ControlsView">
+                    <rect key="frame" x="42" y="578" width="300" height="50"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdZ-EC-jps" userLabel="Mute Voice" customClass="ControlContainerView">
+                            <rect key="frame" x="0.0" y="-5" width="60" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="37" userLabel="MuteVoice">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="N0E-55-op7"/>
+                                        <constraint firstAttribute="height" constant="60" id="tbi-Ob-5jH"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <size key="titleShadowOffset" width="13" height="13"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="muteButtonPress:" destination="-1" eventType="touchUpInside" id="nBU-Mf-2KK"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-mute.png" translatesAutoresizingMaskIntoConstraints="NO" id="4br-zY-CPt" userLabel="MutePng">
+                                    <rect key="frame" x="21" y="3" width="18" height="54"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="18" id="Af5-jV-qHy"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="4br-zY-CPt" firstAttribute="centerY" secondItem="cdZ-EC-jps" secondAttribute="centerY" id="8Ix-wt-t5y"/>
+                                <constraint firstAttribute="height" constant="60" id="9Fm-bD-V3m"/>
+                                <constraint firstAttribute="width" constant="60" id="Scx-dO-3ve"/>
+                                <constraint firstItem="37" firstAttribute="centerX" secondItem="cdZ-EC-jps" secondAttribute="centerX" id="ViC-QJ-1k3"/>
+                                <constraint firstItem="37" firstAttribute="centerY" secondItem="cdZ-EC-jps" secondAttribute="centerY" id="njP-oI-nSl"/>
+                                <constraint firstItem="4br-zY-CPt" firstAttribute="centerX" secondItem="cdZ-EC-jps" secondAttribute="centerX" id="w5a-Aw-y23"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="backButton" destination="37" id="vGs-No-lte"/>
+                                <outlet property="buttonImage" destination="4br-zY-CPt" id="vfZ-3o-xiu"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abb-pQ-kG2" userLabel="Mute Camera" customClass="ControlContainerView">
+                            <rect key="frame" x="80" y="-5" width="60" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEc-Li-dBi" userLabel="MuteCamera">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="5ir-hI-9Hf"/>
+                                        <constraint firstAttribute="width" constant="60" id="8dv-Xq-5TD"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <size key="titleShadowOffset" width="13" height="13"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="muteCamButtonPress:" destination="-1" eventType="touchUpInside" id="tEa-9G-kmR"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-mute-camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="E8t-BH-Ss8" userLabel="MuteCameraPng">
+                                    <rect key="frame" x="16" y="6" width="28" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="28" id="igE-pq-Dc2"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="E8t-BH-Ss8" firstAttribute="centerY" secondItem="abb-pQ-kG2" secondAttribute="centerY" id="0SC-Mt-ILn"/>
+                                <constraint firstAttribute="width" constant="60" id="Dbe-qp-lLU"/>
+                                <constraint firstAttribute="height" constant="60" id="Rx1-37-LRw"/>
+                                <constraint firstItem="aEc-Li-dBi" firstAttribute="centerX" secondItem="abb-pQ-kG2" secondAttribute="centerX" id="cZ9-YI-UsD"/>
+                                <constraint firstItem="E8t-BH-Ss8" firstAttribute="centerX" secondItem="abb-pQ-kG2" secondAttribute="centerX" id="glQ-qF-Ye7"/>
+                                <constraint firstItem="aEc-Li-dBi" firstAttribute="centerY" secondItem="abb-pQ-kG2" secondAttribute="centerY" id="rcy-Rn-BUi"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="backButton" destination="aEc-Li-dBi" id="dwY-Rc-wkI"/>
+                                <outlet property="buttonImage" destination="E8t-BH-Ss8" id="xYh-pT-16S"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAy-MS-Yb3" userLabel="Switch Camera" customClass="ControlContainerView">
+                            <rect key="frame" x="160" y="-5" width="60" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyp-4c-ly1" userLabel="SwitchCamera">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="jtQ-FZ-bJG"/>
+                                        <constraint firstAttribute="width" constant="60" id="vsI-Yc-slJ"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <size key="titleShadowOffset" width="13" height="13"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="switchCameraPress:" destination="-1" eventType="touchUpInside" id="TKT-oS-EJk"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-switch-camera.png" translatesAutoresizingMaskIntoConstraints="NO" id="Z9i-ml-cVR" userLabel="SwitchCameraPng">
+                                    <rect key="frame" x="14" y="5" width="32" height="51"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="32" id="kX2-cL-Bcj"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Z9i-ml-cVR" firstAttribute="centerY" secondItem="uAy-MS-Yb3" secondAttribute="centerY" id="OTq-Xo-P45"/>
+                                <constraint firstItem="Z9i-ml-cVR" firstAttribute="centerX" secondItem="uAy-MS-Yb3" secondAttribute="centerX" id="cZ8-lK-Agi"/>
+                                <constraint firstItem="Eyp-4c-ly1" firstAttribute="centerX" secondItem="uAy-MS-Yb3" secondAttribute="centerX" id="hw5-XU-fB8"/>
+                                <constraint firstAttribute="height" constant="60" id="kdl-ua-7ww"/>
+                                <constraint firstAttribute="width" constant="60" id="ofc-tr-jOI"/>
+                                <constraint firstItem="Eyp-4c-ly1" firstAttribute="centerY" secondItem="uAy-MS-Yb3" secondAttribute="centerY" id="roF-Bk-LoQ"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="backButton" destination="Eyp-4c-ly1" id="jUT-Ol-yNE"/>
+                                <outlet property="buttonImage" destination="Z9i-ml-cVR" id="LvN-oZ-NFJ"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tdl-Kf-WO2" userLabel="Close" customClass="ControlContainerView">
+                            <rect key="frame" x="240" y="-5" width="60" height="60"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWy-Iy-WbP" userLabel="Close">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="60" id="L4e-nt-TG9"/>
+                                        <constraint firstAttribute="height" constant="60" id="hUI-S0-GqL"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <size key="titleShadowOffset" width="13" height="13"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="highlighted">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="hangupPress:" destination="-1" eventType="touchUpInside" id="E1T-5z-qX2"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-close.png" translatesAutoresizingMaskIntoConstraints="NO" id="eSS-aK-IOm" userLabel="ClosePng">
+                                    <rect key="frame" x="14" y="15" width="32" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="32" id="1zT-Ay-IPx"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="uWy-Iy-WbP" firstAttribute="centerX" secondItem="Tdl-Kf-WO2" secondAttribute="centerX" id="0Dl-vs-IPW"/>
+                                <constraint firstItem="eSS-aK-IOm" firstAttribute="centerY" secondItem="Tdl-Kf-WO2" secondAttribute="centerY" id="4Xu-ro-1EO"/>
+                                <constraint firstAttribute="height" constant="60" id="XYL-1x-5Sb"/>
+                                <constraint firstAttribute="width" constant="60" id="mhj-zL-fZM"/>
+                                <constraint firstItem="uWy-Iy-WbP" firstAttribute="centerY" secondItem="Tdl-Kf-WO2" secondAttribute="centerY" id="sJE-jq-OTU"/>
+                                <constraint firstItem="eSS-aK-IOm" firstAttribute="centerX" secondItem="Tdl-Kf-WO2" secondAttribute="centerX" id="tvX-7r-lJG"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="backButton" destination="uWy-Iy-WbP" id="OsT-HD-g5V"/>
+                                <outlet property="buttonImage" destination="eSS-aK-IOm" id="CaC-lL-hSK"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                    </accessibility>
+                    <rect key="contentStretch" x="0.0" y="0.0" width="0.94999999999999996" height="1"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="abb-pQ-kG2" firstAttribute="centerX" secondItem="4" secondAttribute="trailing" multiplier="1/3" constant="10" id="9f7-Zl-brY"/>
+                        <constraint firstAttribute="height" constant="50" id="HKj-v3-H3I"/>
+                        <constraint firstItem="cdZ-EC-jps" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="JCe-5q-4oF"/>
+                        <constraint firstItem="Tdl-Kf-WO2" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="bXn-wr-VxH"/>
+                        <constraint firstItem="Tdl-Kf-WO2" firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="dQn-Ok-m1b"/>
+                        <constraint firstAttribute="width" constant="300" id="db6-h3-IgN"/>
+                        <constraint firstItem="uAy-MS-Yb3" firstAttribute="centerX" secondItem="4" secondAttribute="trailing" multiplier="2/3" constant="-10" id="eLa-yE-Ds8"/>
+                        <constraint firstItem="abb-pQ-kG2" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="je6-nM-bOF"/>
+                        <constraint firstItem="cdZ-EC-jps" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="wEV-Yn-cdb"/>
+                        <constraint firstItem="uAy-MS-Yb3" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="wU2-NI-uH4"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="75" appends="YES" id="76"/>
+                        <outletCollection property="gestureRecognizers" destination="72" appends="YES" id="73"/>
+                    </connections>
+                </view>
+            </subviews>
+            <accessibility key="accessibilityConfiguration">
+                <accessibilityTraits key="traits" notEnabled="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="130" firstAttribute="height" secondItem="2" secondAttribute="height" id="4Wo-QL-Bb7"/>
+                <constraint firstItem="cpK-Ze-o3z" firstAttribute="trailing" secondItem="c3C-0L-3v4" secondAttribute="trailing" constant="-18" id="5pC-ZZ-uiU"/>
+                <constraint firstItem="130" firstAttribute="width" secondItem="2" secondAttribute="width" id="9sT-gG-eFf"/>
+                <constraint firstItem="Qbp-eU-6c0" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="BPy-AK-2iZ"/>
+                <constraint firstItem="oLt-Lx-eZI" firstAttribute="centerX" secondItem="cdZ-EC-jps" secondAttribute="centerX" id="EUx-09-VtJ"/>
+                <constraint firstItem="oLt-Lx-eZI" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="GEP-Do-uwZ"/>
+                <constraint firstItem="nPm-wG-agI" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="HeD-jj-CpM"/>
+                <constraint firstItem="c3C-0L-3v4" firstAttribute="top" secondItem="2" secondAttribute="top" constant="70" id="Uc2-Tp-Vbt"/>
+                <constraint firstItem="c3C-0L-3v4" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="Uyv-0Z-RfP"/>
+                <constraint firstItem="nPm-wG-agI" firstAttribute="top" secondItem="2" secondAttribute="top" constant="150" id="XOT-3m-trG"/>
+                <constraint firstItem="130" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="aGL-7K-ARo"/>
+                <constraint firstItem="xbQ-S9-zna" firstAttribute="centerX" secondItem="abb-pQ-kG2" secondAttribute="centerX" id="agX-dk-nHD"/>
+                <constraint firstItem="4" firstAttribute="centerX" secondItem="130" secondAttribute="centerX" id="e8D-Yy-4fH"/>
+                <constraint firstItem="Qbp-eU-6c0" firstAttribute="top" secondItem="2" secondAttribute="top" constant="25" id="ecm-Ll-1zp"/>
+                <constraint firstItem="xbQ-S9-zna" firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="iPf-MF-sB6"/>
+                <constraint firstItem="cpK-Ze-o3z" firstAttribute="top" secondItem="c3C-0L-3v4" secondAttribute="top" id="jRT-Jh-Qhv"/>
+                <constraint firstItem="4" firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="-20" id="msW-gj-RnF"/>
+                <constraint firstItem="130" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="on8-iu-JdJ"/>
+                <constraint firstItem="nPm-wG-agI" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="50" id="tXa-4s-NeA"/>
+                <constraint firstItem="Qbp-eU-6c0" firstAttribute="width" secondItem="2" secondAttribute="width" id="uIR-7j-XBe"/>
+                <constraint firstItem="8UP-eD-I7V" firstAttribute="leading" secondItem="c3C-0L-3v4" secondAttribute="leading" id="uIy-YH-bNg"/>
+                <constraint firstItem="c3C-0L-3v4" firstAttribute="width" secondItem="2" secondAttribute="width" id="wzJ-Ke-LvB"/>
+                <constraint firstItem="8UP-eD-I7V" firstAttribute="top" secondItem="cpK-Ze-o3z" secondAttribute="top" id="xUg-C3-Xqn"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="yMT-DM-lW5" appends="YES" id="5L9-ZB-4j3"/>
+            </connections>
+            <point key="canvasLocation" x="-87" y="-31"/>
+        </view>
+        <swipeGestureRecognizer direction="up" id="75" userLabel="controlBarUp"/>
+        <swipeGestureRecognizer direction="up" id="92" userLabel="remoteVideoUp">
+            <connections>
+                <action selector="onSwipeUpRemote:" destination="-1" id="99"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="95" userLabel="remoteVideoDown">
+            <connections>
+                <action selector="onSwipeDown:" destination="-1" id="97"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="72" userLabel="controlBarDown">
+            <connections>
+                <action selector="onSwipeDown:" destination="-1" id="74"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <tapGestureRecognizer id="yMT-DM-lW5">
+            <connections>
+                <action selector="onViewTapped:" destination="-1" id="Mak-4p-RUq"/>
+            </connections>
+        </tapGestureRecognizer>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AW8-ml-gZy">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+        </label>
+    </objects>
+    <resources>
+        <image name="chat.png" width="60" height="57"/>
+        <image name="status-muted-camera.png" width="28" height="24"/>
+        <image name="status-muted.png" width="18" height="26"/>
+        <image name="videocall-close.png" width="80" height="30"/>
+        <image name="videocall-mute-camera.png" width="55" height="48"/>
+        <image name="videocall-mute.png" width="38" height="54"/>
+        <image name="videocall-record-close.png" width="50" height="50"/>
+        <image name="videocall-record-info.png" width="50" height="50"/>
+        <image name="videocall-switch-camera.png" width="64" height="51"/>
+    </resources>
+</document>

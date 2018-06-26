@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="ufonts.com_gotham-bold.ttf">
+            <string>GothamBold</string>
+        </array>
+        <array key="ufonts.com_gotham-light.ttf">
+            <string>GothamLight</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LinphoneInitViewController">
+            <connections>
+                <outlet property="butClose" destination="ABL-aD-nJo" id="idy-W5-psR"/>
+                <outlet property="butMute" destination="l4C-TW-Zse" id="8hp-0j-x5f"/>
+                <outlet property="butSpeaker" destination="2Zh-d7-wlw" id="1G8-jE-VVY"/>
+                <outlet property="chatBtn" destination="h4c-CP-i0y" id="4yy-y2-zFe"/>
+                <outlet property="imgViewAvatar" destination="g1d-LF-cwn" id="uf0-R7-ewu"/>
+                <outlet property="lbLabel1" destination="0vh-DB-jPc" id="6TM-JS-jVS"/>
+                <outlet property="lbLabel2" destination="PlX-SC-P2T" id="E5q-Au-c2f"/>
+                <outlet property="lbLabel3" destination="D5Q-Vs-I74" id="Bhg-x2-Cjs"/>
+                <outlet property="lbLabel4" destination="Kbe-0r-Xj0" id="Vmk-eZ-Dzp"/>
+                <outlet property="lbLabel5" destination="z8B-Nh-PIm" id="9sX-KC-ddf"/>
+                <outlet property="lbMute" destination="KOh-cO-GkQ" id="fh2-cc-azC"/>
+                <outlet property="lbRecordingNotification" destination="JMV-g3-PId" id="owr-a4-g0g"/>
+                <outlet property="lbSpeaker" destination="EcT-YN-Gs8" id="DRr-Vx-hMU"/>
+                <outlet property="muteButtonXContraint" destination="L4s-wn-6v6" id="0bC-Pn-4Ej"/>
+                <outlet property="view" destination="iN0-l3-epB" id="lIh-W6-VAz"/>
+                <outlet property="viewRecordingContainer" destination="by7-bv-K7P" id="16n-9o-7e9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="by7-bv-K7P" userLabel="RecordingView">
+                    <rect key="frame" x="0.0" y="25" width="1024" height="30"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videocall-record-info.png" translatesAutoresizingMaskIntoConstraints="NO" id="C6q-Zf-kQ5" userLabel="Icon">
+                            <rect key="frame" x="449.5" y="6.5" width="17" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="17" id="7Ac-wA-7uf"/>
+                                <constraint firstAttribute="width" constant="17" id="me6-wN-xeR"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMV-g3-PId" userLabel="Recording Notification Text">
+                            <rect key="frame" x="476.5" y="9" width="71.5" height="12.5"/>
+                            <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0a-qI-zVH">
+                            <rect key="frame" x="987" y="6.5" width="17" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="17" id="Wo5-UV-YUY"/>
+                                <constraint firstAttribute="width" constant="17" id="eRD-yz-rlk"/>
+                            </constraints>
+                            <state key="normal" backgroundImage="videocall-record-close.png"/>
+                            <connections>
+                                <action selector="onCloseRecordingLayout:" destination="-1" eventType="touchUpInside" id="aPu-su-QdI"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.49803921568627452" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="1Mu-E5-cLg"/>
+                        <constraint firstItem="r0a-qI-zVH" firstAttribute="centerY" secondItem="by7-bv-K7P" secondAttribute="centerY" id="1Wj-mB-Jni"/>
+                        <constraint firstItem="r0a-qI-zVH" firstAttribute="trailing" secondItem="by7-bv-K7P" secondAttribute="trailing" constant="-20" id="LJx-hp-Ifd"/>
+                        <constraint firstItem="JMV-g3-PId" firstAttribute="centerX" secondItem="by7-bv-K7P" secondAttribute="centerX" id="Ytj-PF-grr"/>
+                        <constraint firstItem="JMV-g3-PId" firstAttribute="centerY" secondItem="by7-bv-K7P" secondAttribute="centerY" id="Zas-AU-14M"/>
+                        <constraint firstItem="C6q-Zf-kQ5" firstAttribute="centerY" secondItem="by7-bv-K7P" secondAttribute="centerY" id="dLj-e3-gfp"/>
+                        <constraint firstItem="C6q-Zf-kQ5" firstAttribute="trailing" secondItem="JMV-g3-PId" secondAttribute="leading" constant="-10" id="mAS-eH-EHv"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doctor_example.png" translatesAutoresizingMaskIntoConstraints="NO" id="g1d-LF-cwn" userLabel="Avatar">
+                    <rect key="frame" x="125" y="304" width="160" height="160"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="B0D-pr-6qs"/>
+                        <constraint firstAttribute="height" constant="160" id="L8j-Zg-5ma"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calling..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vh-DB-jPc" userLabel="Label1">
+                    <rect key="frame" x="305" y="371.5" width="414" height="15"/>
+                    <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dr. Gabriel Johnson" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlX-SC-P2T" userLabel="Label2">
+                    <rect key="frame" x="305" y="396.5" width="414" height="15"/>
+                    <fontDescription key="fontDescription" name="GothamBold" family="Gotham Bold" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5Q-Vs-I74" userLabel="Label3">
+                    <rect key="frame" x="458" y="376.5" width="108" height="15"/>
+                    <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regsitering..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kbe-0r-Xj0" userLabel="Label4">
+                    <rect key="frame" x="461.5" y="373.5" width="101" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Establishing Call..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8B-Nh-PIm" userLabel="Label5">
+                    <rect key="frame" x="166" y="323" width="42" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4C-TW-Zse" userLabel="MuteButton">
+                    <rect key="frame" x="715" y="253" width="68" height="68"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="68" id="Lvd-mE-Yok"/>
+                        <constraint firstAttribute="height" constant="68" id="pqP-OZ-dvU"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="mute.png">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" backgroundImage="muted.png">
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onMute:" destination="-1" eventType="touchUpInside" id="0AP-uG-EMi"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOh-cO-GkQ" userLabel="Mute">
+                    <rect key="frame" x="728" y="331" width="42" height="16"/>
+                    <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zh-d7-wlw" userLabel="SpeakerButton">
+                    <rect key="frame" x="855" y="253" width="68" height="68"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="68" id="gMT-4Q-P4C"/>
+                        <constraint firstAttribute="width" constant="68" id="pNL-CG-a3m"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" backgroundImage="speaker.png"/>
+                    <state key="selected" backgroundImage="speaker-muted.png"/>
+                    <connections>
+                        <action selector="onSpeaker:" destination="-1" eventType="touchUpInside" id="TMt-a7-wa0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speakers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcT-YN-Gs8" userLabel="Speaker">
+                    <rect key="frame" x="851" y="331" width="77" height="16"/>
+                    <fontDescription key="fontDescription" name="GothamLight" family="Gotham Light" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ABL-aD-nJo">
+                    <rect key="frame" x="782.5" y="464.5" width="73" height="73"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="73" id="IQh-uc-dSS"/>
+                        <constraint firstAttribute="width" constant="73" id="Ibm-Id-eGw"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="end-call.png"/>
+                    <connections>
+                        <action selector="onHangup:" destination="-1" eventType="touchUpInside" id="O0q-dw-nt7"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4c-CP-i0y" userLabel="chatBtn">
+                    <rect key="frame" x="980" y="53" width="24" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="chat.png"/>
+                    <connections>
+                        <action selector="goTextChat:" destination="-1" eventType="touchUpInside" id="r26-OK-rtP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.039215686274509803" green="0.47450980392156861" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="2Zh-d7-wlw" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="4/5" constant="-20" id="3jl-tf-OAd"/>
+                <constraint firstItem="Kbe-0r-Xj0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6YE-fF-ZBl"/>
+                <constraint firstItem="0vh-DB-jPc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6yY-TL-BlB"/>
+                <constraint firstItem="EcT-YN-Gs8" firstAttribute="top" secondItem="2Zh-d7-wlw" secondAttribute="bottom" constant="10" id="BSD-iU-N4W"/>
+                <constraint firstItem="PlX-SC-P2T" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EA3-Ep-9d7"/>
+                <constraint firstItem="PlX-SC-P2T" firstAttribute="leading" secondItem="g1d-LF-cwn" secondAttribute="trailing" constant="20" id="HOl-j8-W6N"/>
+                <constraint firstItem="by7-bv-K7P" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JcQ-Sw-bbW"/>
+                <constraint firstItem="l4C-TW-Zse" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="1.6" constant="-70" id="L4s-wn-6v6"/>
+                <constraint firstItem="0vh-DB-jPc" firstAttribute="leading" secondItem="g1d-LF-cwn" secondAttribute="trailing" constant="20" id="Nfh-IZ-cjz"/>
+                <constraint firstItem="0vh-DB-jPc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-5" id="Otv-QP-ReZ"/>
+                <constraint firstItem="KOh-cO-GkQ" firstAttribute="top" secondItem="l4C-TW-Zse" secondAttribute="bottom" constant="10" id="S8Q-hs-gUb"/>
+                <constraint firstItem="ABL-aD-nJo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="1.6" id="SIc-Wj-vRY"/>
+                <constraint firstItem="Kbe-0r-Xj0" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Utk-pt-rzF"/>
+                <constraint firstItem="ABL-aD-nJo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="1.2" constant="40" id="Xca-cw-Pdt"/>
+                <constraint firstItem="EcT-YN-Gs8" firstAttribute="centerX" secondItem="2Zh-d7-wlw" secondAttribute="centerX" id="YX3-Z6-9ur"/>
+                <constraint firstItem="D5Q-Vs-I74" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aIL-Yo-KHb"/>
+                <constraint firstItem="by7-bv-K7P" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="edS-ZZ-xp5"/>
+                <constraint firstItem="l4C-TW-Zse" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="4/5" constant="-20" id="fhE-2f-Lt8"/>
+                <constraint firstItem="by7-bv-K7P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="kQW-a2-OBW"/>
+                <constraint firstItem="g1d-LF-cwn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/2" id="mTl-o3-mp7"/>
+                <constraint firstItem="g1d-LF-cwn" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="0.4" id="pOg-6L-pZ3"/>
+                <constraint firstItem="PlX-SC-P2T" firstAttribute="top" secondItem="0vh-DB-jPc" secondAttribute="bottom" constant="10" id="pRK-SB-FQd"/>
+                <constraint firstItem="KOh-cO-GkQ" firstAttribute="centerX" secondItem="l4C-TW-Zse" secondAttribute="centerX" id="tyV-d9-peP"/>
+                <constraint firstItem="2Zh-d7-wlw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" multiplier="1.6" constant="70" id="z1t-e2-bwa"/>
+                <constraint firstItem="D5Q-Vs-I74" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="zqG-UQ-59j"/>
+            </constraints>
+            <point key="canvasLocation" x="28.5" y="56.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chat.png" width="60" height="57"/>
+        <image name="doctor_example.png" width="96" height="96"/>
+        <image name="end-call.png" width="119" height="119"/>
+        <image name="mute.png" width="140" height="140"/>
+        <image name="muted.png" width="140" height="140"/>
+        <image name="speaker-muted.png" width="140" height="140"/>
+        <image name="speaker.png" width="140" height="140"/>
+        <image name="videocall-record-close.png" width="50" height="50"/>
+        <image name="videocall-record-info.png" width="50" height="50"/>
+    </resources>
+</document>

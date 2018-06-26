@@ -1,0 +1,82 @@
+//
+//  Constant.h
+//  SipVideoPluginTest
+//
+//  Created by SCNDev1 on 12/26/16.
+//
+//
+
+#ifndef Constant_h
+#define Constant_h
+
+#define CALL_NO_ERROR 0
+#define CALL_ERROR_PERMISSIONS_DENIED 1
+#define CALL_ERROR_REGISTER_FAILURE 2
+#define CALL_ERROR_CALL_CONNECTING_FAILURE 3
+#define CALL_ERROR_BUSY 4
+#define CALL_ERROR_DECLINED 5
+#define CALL_ERROR_WEB_USER_NOT_FOUND 6
+#define CALL_ERROR_INIT_TIMEOUT 7
+#define CALL_ERROR_RINGING_TIMEOUT 8
+#define CALL_ERROR_CALLEE_NOT_EXIST 9
+#define CALL_ERROR_NOINTERNET 10
+#define CALL_ERROR_NETWORK_CHANGED 12
+#define CALL_ERROR_UNKNOWN 11
+
+// call status
+#define CALL_STATUS_REGISTERING 1
+#define CALL_STATUS_INIT 2
+#define CALL_STATUS_RINGING 3
+#define CALL_STATUS_CONNECTING 4
+#define CALL_STATUS_CONNECTED 5
+#define CALL_STATUS_ENDED 6
+
+#define CALL_STATUS_RETRYING 7
+#define CALL_STATUS_ENDING 8
+
+
+// network status
+#define NETWORK_STATUS_NOINTERNET 1
+#define NETWORK_STATUS_2G 2
+#define NETWORK_STATUS_3G 3
+#define NETWORK_STATUS_4G 4
+#define NETWORK_STATUS_WIFI 5
+
+// call events
+#define CALL_EVENT_MICRO_MUTED 1
+#define CALL_EVENT_MICRO_UNMUTED 2
+#define CALL_EVENT_CAMERA_MUTED 3
+#define CALL_EVENT_CAMERA_UNMUTED 4
+
+// call init time out seconds
+#define CALL_INIT_TIMEOUT_SECONDS 3
+#define CALL_REGISTER_TIMEOUT_SECONDS 10
+#define CALL_UNREGISTER_TIMEOUT_SECONDS 12
+#define CALL_RING_TIMEOUT_SECONDS 30
+#define CALL_CONNECTING_TIMEOUT_SECONDS 10
+#define CALL_RINGING_TIMEOUT_SECONDS 32
+
+// call hangup cause
+#define CALL_HANGUP_BY_CALLEE 1
+#define CALL_HANGUP_BY_ERROR 2
+#define CALL_HANGUP_BY_CALLER 3
+
+#define QUALITY_COUNT_FOR_AVERAGE 5
+#define QUALITY_COUNT_SEND_PHEMIUM 10
+
+
+// minimize Video Screen
+#define MINIMIZE_VIDEO 10
+
+// gui setting
+#define FONT_SIZE_OFFSET_BUTTON_LABEL 4
+#define FONT_SIZE_OFFSET_STATUS_LABEL 2
+
+#define CALL_RECORD_DIRECTORY_NAME "Record"
+
+FOUNDATION_EXPORT NSString * const NotificationCategoryIdent;
+FOUNDATION_EXPORT NSString * const NotificationCategoryIdent1;
+FOUNDATION_EXPORT NSString * const NotificationActionOneIdent;
+FOUNDATION_EXPORT NSString * const NotificationActionTwoIdent;
+
+#endif /* Constant_h */

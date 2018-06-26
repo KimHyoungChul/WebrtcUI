@@ -1,0 +1,31 @@
+@mixin transition($property, $duration, $timing) {
+  -webkit-transition: $property $duration $timing;
+  -moz-transition: $property $duration $timing;
+  -ms-transition: $property $duration $timing;
+  -o-transition: $property $duration $timing;
+  transition: $property $duration $timing;
+}
+
+/*
+ * Apply a CSS3 transition-timing-function
+ * @include transitionTimingFunction(easing);
+ */
+@mixin transitionTimingFunction($easing) {
+  -webkit-transition-timing-function: $easing;
+  -moz-transition-timing-function: $easing;
+  -o-transition-timing-function: $easing;
+  -ms-transition-timing-function: $easing;
+  transition-timing-function: $easing;
+}
+
+/*
+ * Apply a CSS3 transition-timing-function
+ * @include transitionTimingFunction(easing);
+ */
+@mixin transitionTimingFunction($easing) {
+  -webkit-transition-timing-function: $easing;
+  -moz-transition-timing-function: $easing;
+  -o-transition-timing-function: $easing;
+  -ms-transition-timing-function: $easing;
+  transition-timing-function: $easing;
+}

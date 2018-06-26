@@ -1,0 +1,12 @@
+[
+  {"connecting": "Connectant..."},
+  {"calling" : "Trucant..."},
+  {"calling_mute" : "Silenciar"},
+  {"calling_speaker" : "Altaveu"},
+  {"recording" : "La conversació s'està gravant"},
+  {"registering": "Registrant-se..."},
+  {"establishing": "Establint trucada..."},
+  {"retrying": "Reintentant trucada..."},
+  {"ending": "Finalitzant trucada..."},
+  {"low_signal_alert": "Hi ha problemes de xarxa"}
+]

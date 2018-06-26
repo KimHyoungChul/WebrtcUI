@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/videocallview_top_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:theme="@style/Theme.AppCompat">
+
+    <LinearLayout
+        android:id="@+id/videoSurfaceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:clipChildren="false">
+        <LinearLayout
+            android:id="@+id/videoSurface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/videoCaptureSurface"
+        android:layout_width="120dp"
+        android:layout_height="145dp"
+        android:background="@drawable/local_video_background"
+        android:padding="1dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:clipChildren="false"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        android:layout_above="@+id/controlsContainer"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/videocall_gradient_banner_height"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/videocall_gradient_top_banner"/>
+    
+    <RelativeLayout
+        android:id="@+id/videocall_recordingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:background="#50007FFF">
+        <TextView
+            android:id="@+id/videocall_recordingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="15sp"
+            android:text="@string/recording"/>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/videocall_recordinglayout_info"
+            android:layout_toLeftOf="@id/videocall_recordingText"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/videocall_recordingLayoutClose"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/videocall_recordinglayout_close"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/calleeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:text="" />
+        <TextView
+            android:id="@+id/callDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            android:text="00:00"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/signal_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_alignTop="@id/topPanel">
+        <com.phemium.sipvideocall.views.SignalView
+            android:id="@+id/signalview"
+            android:layout_width="24dp"
+            android:layout_height="20dp" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/alert_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:background="#44eeeeee"
+        android:visibility="invisible"
+        >
+        <TextView
+            android:id="@+id/txt_signalalert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#99FF4400"
+            android:text="Problems with network...."
+            />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:background="@null"
+        android:id="@+id/badge_layout"
+        android:layout_alignTop="@id/topPanel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/btn_chat"
+            android:layout_width="33dp"
+            android:layout_height="31dp"
+            android:paddingTop="3dp" android:paddingRight="3dp"
+            android:src="@drawable/chat"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="1" android:textSize="9dp" android:textStyle="bold"
+            android:background="@drawable/shapecount"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="3dp" android:paddingRight="3dp"
+            android:layout_alignRight="@id/btn_chat"
+            android:layout_margin="0dp"
+            android:id="@+id/txtCount" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/videocall_gradient_banner_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/videocall_gradient_bottom_banner">
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="@dimen/videocall_controlbutton_container_width"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/videocall_controlbutton_container_margin_bottom"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="@dimen/videocall_controlbutton_width"
+            android:layout_height="@dimen/videocall_controlbutton_height"
+            android:layout_marginRight="@dimen/videocall_controlbutton_interval_distance"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom">
+            <ImageView
+                android:id="@+id/statusImage1"
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/videocall_status_mute"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="@dimen/videocall_controlbutton_width"
+            android:layout_height="@dimen/videocall_controlbutton_height"
+            android:layout_marginRight="@dimen/videocall_controlbutton_interval_distance_small"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom">
+            <ImageView
+                android:id="@+id/statusImage2"
+                android:layout_width="28dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/videocall_mute_camera"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/controlsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/videocall_controlbutton_container_margin_bottom"
+        android:clickable="true"
+        android:orientation="horizontal">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/muteMicButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="@dimen/videocall_controlbutton_interval_distance"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom"
+            android:src="@drawable/videocall_status_mute"
+            android:background="@android:color/holo_red_light"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/muteCamButton"
+            android:layout_width="@dimen/videocall_controlbutton_width"
+            android:layout_height="@dimen/videocall_controlbutton_height"
+            android:layout_marginRight="@dimen/videocall_controlbutton_interval_distance"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom"
+            android:src="@drawable/videocall_mute_camera"
+            android:background="@android:color/holo_red_light" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/switchCameraButton"
+            android:layout_width="@dimen/videocall_controlbutton_width"
+            android:layout_height="@dimen/videocall_controlbutton_height"
+            android:layout_marginRight="@dimen/videocall_controlbutton_interval_distance"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom"
+            android:src="@drawable/videocall_switch_camera"
+            android:background="@android:color/holo_red_light" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/closeButton"
+            android:layout_width="@dimen/videocall_controlbutton_width"
+            android:layout_height="@dimen/videocall_controlbutton_height"
+            android:layout_marginBottom="@dimen/videocall_controlbutton_margin_bottom"
+            android:src="@drawable/videocall_close"
+            android:background="@android:color/holo_red_light" />
+    </LinearLayout>
+
+</RelativeLayout>

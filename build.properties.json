@@ -1,0 +1,28 @@
+{
+  "maintainer": {
+    "name": "Phemium",
+    "email": "developers@phemium.com"
+  },
+  "package": {
+    "app": {
+      "id": "com.phemium.sipvideocalltestapp1",
+      "app_name": "Phemium Videocall Test App",
+      "name": "phemium-videocall-plugin",
+      "description": "Phemium videocall test app",
+      "install": {
+        "dir": ""
+      }
+    },
+    "plugin": {
+      "id": "com.phemium.sipvideocall",
+      "name": "phemium-videocall-plugin",
+      "description": "This plugin allows your application to make sip video calls",
+      "install": {
+        "dir": ""
+      }
+    }
+  },
+  "deploy": {
+    "url": "https://releases.phemium.com/upload/"
+  }
+}

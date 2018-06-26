@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="videocall_controlbutton_width">60dp</dimen>
+    <dimen name="videocall_controlbutton_height">60dp</dimen>
+    <dimen name="videocall_controlbutton_interval_distance">20dp</dimen>
+    <dimen name="videocall_controlbutton_interval_distance_small">10dp</dimen>
+    <dimen name="videocall_controlbutton_container_width">300dp</dimen>
+    <dimen name="videocall_controlbutton_container_margin_bottom">10dp</dimen>
+    <dimen name="videocall_controlbutton_margin_bottom">15dp</dimen>
+    <dimen name="videocall_statusimage_width">40dp</dimen>
+    <dimen name="videocall_gradient_banner_height">150dp</dimen>
+</resources>

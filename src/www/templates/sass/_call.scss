@@ -1,0 +1,316 @@
+$phe-videocall-bg-color: transparent !default;
+$phe-videocall-font-color: $white !default;
+$phe-video-call-header-left-width: 40px !default;
+$phe-videocall-toolbar-height: 70px !default;
+$phe-videocall-action-bg-color: $main-color !default;
+$phe-videocall-action-icon-color: $white !default;
+$phe-videocall-action-size: 50px !default;
+$phe-videocall-local-height: 120px;
+$phe-videocall-local-width: ( $phe-videocall-local-height * 4 ) / 3;
+$phe-videocall-avatar-size: 150px !default;
+$phe-videocall-audio-bg-initial-color: $main-color !default;
+$phe-videocall-audio-bg-end-color:  lighten( $main-color, 30% ) !default;
+$phe-videocall-actions-toolbar-button-color: $white !default;
+$phe-videocall-actions-toolbar-button-size: $phe-videocall-avatar-size / 2 !default;
+
+phe-videocall-webrtc {
+  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: $phe-videocall-bg-color;
+  color: $phe-videocall-font-color;
+  @include transition( all, 0.2s, linear );
+  @include z-depth(1);
+  z-index: 10000;
+
+  > div {
+    height: 100%;
+  }
+
+  &.zoomOut {
+    z-index: 0;
+  }
+
+  &.zoomIn {
+    z-index: 10000;
+  }
+
+  .phe-videocall-header {
+    @include flexbox();
+    @include align-items( center );
+    @include transition( all, 0.2s, linear );
+    @include transform( translateY( 0 ) );
+    padding: 1rem 2rem;
+    padding-top: env( safe-area-inset-top );
+
+
+    .phe-video-call-header-right,
+    .phe-video-call-header-left {
+      width: $phe-video-call-header-left-width;
+    }
+
+    .phe-video-call-header-center {
+      width: calc( 100% - #{$phe-video-call-header-left-width} );
+    }
+
+    .phe-videocall-info {
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+
+      .phe-videocall-info-name {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .phe-videocall-info-duration {
+        font-weight: 300;
+      }
+    }
+
+    .phe-video-call-chat {
+      padding: 0.5rem;
+      position: relative;
+      text-align: center;
+
+      i {
+        font-size: 2rem;
+      }
+
+      .badge {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+      }
+    }
+  }
+
+  .phe-videocall-video {
+    position: fixed;
+    @include transition( all, 0.05s, linear );
+
+    &.local {
+      @include z-depth(1);
+      bottom: 1rem;
+      right: 1rem;
+      width: $phe-videocall-local-width;
+      height: $phe-videocall-local-height;
+      @include transition( all, 0.5s, ease-in );
+      @include transform( translateY( 0 ) );
+
+      &.no-camera {
+        background: $white url( /assets/imgs/nowebcam.png ) center center no-repeat;
+        background-size: 80%;
+
+        video {
+          visibility: hidden;
+        }
+      }
+
+      video {
+        position: absolute;
+        object-fit: fill;
+        z-index: -10;
+        width: 100%;
+        height: 100%;
+      }
+
+      &.no-animation {
+        transition-duration: 0s;
+      }
+
+      &.with-toolbar {
+        @include transition( all, 0.5s, ease-out );
+        @include transform( translateY( -$phe-videocall-toolbar-height ) );
+      }
+    }
+
+    &.remote {
+      width: 100%;
+      height: 100%;
+      background: rgba( $white, 0.1 );
+      @include transition( all, 0.2s, linear );
+
+      video {
+        position: absolute;
+        left: 50%;
+        object-fit: fill;
+        z-index: -100;
+        @include transform( translateX( -50% ) );
+      }
+    }
+  }
+
+  .phe-videocall-toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: $phe-videocall-toolbar-height;
+    @include flexbox();
+    @include align-items( center );
+    @include justify-content( center );
+    padding-bottom: env( safe-area-inset-bottom );
+
+    .action {
+      cursor: pointer;
+      background-color: $phe-videocall-action-bg-color;
+      border-radius: 100%;
+      height: $phe-videocall-action-size;
+      width: $phe-videocall-action-size;
+      @include flexbox();
+      @include align-items( center );
+      @include justify-content( center );
+      @include z-depth( 1 );
+      margin: 0 0.75rem;
+      @include transition( all, 0.2s, ease-in-out );
+      @include transform( translateY( 150px ) );
+
+      i {
+        color: $phe-videocall-action-icon-color;
+        font-size: 2rem;
+      }
+
+      img {
+        height: 2.5rem;
+      }
+
+      @for $i from 1 through 4 {
+        &:nth-of-type( #{$i} ) {
+          transition-delay: 0.05s * $i
+        }
+      }
+
+      &.showed {
+        @include transform( translateY( 0px ) );
+      }
+    }
+  }
+
+  &.minimized {
+    width: $phe-videocall-local-width;
+    height: $phe-videocall-local-height;
+    top: 5rem;
+    right: 1rem;
+
+    .phe-videocall-header {
+      @include transform( translateY( -600px ) );
+    }
+
+    .phe-videocall-video {
+      &.local {
+        @include transform( translateX( 600px ) );
+      }
+
+      &.remote {
+        width: $phe-videocall-local-width;
+        height: $phe-videocall-local-height;
+      }
+    }
+
+    .phe-videocall-toolbar {
+      display: none;
+    }
+  }
+
+
+  // Audio calls
+  &.audio {
+    // @include linear-gradient( top, $phe-videocall-audio-bg-initial-color, $phe-videocall-audio-bg-end-color );
+
+    > div > div {
+      @include flexbox();
+      @include align-items( center );
+      @include justify-content( center );
+    }
+
+    .phe-videocall-header {
+      position: relative;
+      height: 5rem;
+
+      .phe-video-call-header-right {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+      }
+    }
+
+    .phe-videocall-caller-image {
+
+      img {
+        border-radius: 100%;
+        height: $phe-videocall-avatar-size;
+        width: $phe-videocall-avatar-size;
+      }
+    }
+
+    .phe-videocall-caller-info {
+      padding: 2rem 2rem;
+      @include flex-direction( column );
+      font-size: 1.5rem;
+
+      .phe-videocall-caller-name {
+        text-align: center;
+        width: 100%;
+      }
+
+      .phe-videocall-info-duration {
+        margin-top: 1rem;
+      }
+    }
+
+    .phe-videocall-buttons,
+    .phe-videocall-actions-toolbar {
+      padding: 1rem 0;
+
+      > div {
+        border: 1px solid $phe-videocall-actions-toolbar-button-color;
+        height: $phe-videocall-actions-toolbar-button-size;
+        width: $phe-videocall-actions-toolbar-button-size;
+        margin: 0rem 2rem;
+        @include flexbox();
+        @include align-items( center );
+        @include justify-content( center );
+        border-radius: 100%;
+
+        i {
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+    .phe-videocall-buttons {
+      position: absolute;
+      bottom: 2rem;
+      width: 100%;
+
+      > div {
+        border: 0;
+        font-size: 4rem;
+
+        &.ion-ios-telephone.cancel:before {
+          @include transform( rotate( 135deg ) );
+        }
+      }
+    }
+
+    &.minimized {
+      .phe-videocall-caller-image {
+        position: relative;
+        top: 50%;
+        @include transform( translateY( -50% ) );
+      }
+    }
+  }
+
+  .badge {
+    background-color: $red;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+    margin-top: -5px;
+    margin-right: -5px;
+    font-weight: bold;
+  }
+}
