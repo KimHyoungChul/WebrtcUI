@@ -398,7 +398,7 @@ var SipVideoCallWebRTC = function()
 
     // Prepare Outgoing Call UI
     this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="callee-name"]' ).innerHTML = this._config.gui_settings.consultant_name || '';
-    this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="service-name"]' ).innerHTML = this._config.gui_settings.service_name || '';
+    // this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="service-name"]' ).innerHTML = this._config.gui_settings.service_name || '';
     this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="message"]' ).innerHTML = 'Registrando...';
     var avatar_url = ( this._config.gui_settings.consultant_avatar_url ) ? this._config.gui_settings.consultant_avatar_url : 'phemium-videocall/images/avatar.png';
     this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="callee-avatar"]' ).innerHTML = '<img src="' + avatar_url + '" />';
@@ -467,7 +467,7 @@ var SipVideoCallWebRTC = function()
 
     // Prepare Incoming Call UI
     this._dom_incoming_call_wrapper_object.querySelector( '[data-id="callee-name"]' ).innerHTML = this._config.gui_settings.consultant_name || '';
-    this._dom_incoming_call_wrapper_object.querySelector( '[data-id="service-name"]' ).innerHTML = this._config.gui_settings.service_name || '';
+    // this._dom_incoming_call_wrapper_object.querySelector( '[data-id="service-name"]' ).innerHTML = this._config.gui_settings.service_name || '';
     this._dom_incoming_call_wrapper_object.querySelector( '[data-id="message"]' ).innerHTML = 'Registrando...';
     var avatar_url = ( this._config.gui_settings.consultant_avatar_url ) ? this._config.gui_settings.consultant_avatar_url : 'phemium-videocall/images/avatar.png';
     this._dom_incoming_call_wrapper_object.querySelector( '[data-id="callee-avatar"]' ).innerHTML = '<img src="' + avatar_url + '" />';
