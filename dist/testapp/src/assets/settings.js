@@ -25,11 +25,11 @@ window.settings = {
   },
 
   dev: {
-    sipAddress: "sip:42000000003@sip-dev.phemium.com",
-    sipPassword: "8ac1bf079a739265",
-    sipProxyWithTransport: "sip-dev.phemium.com:443?transport=tls",
-    sipProxy: "sip-dev.phemium.com:5070",
-    outgoingSipAddress: "sip:42000000002@sip-dev.phemium.com",
+	sipAddress: "sip:42000000062@sip-dev.phemium.com",
+	sipPassword: "d435d965ed0561db",
+	sipProxyWithTransport: "sip-dev.phemium.com:443?transport=tls",
+	sipProxy: "sip-dev.phemium.com:5070",
+	outgoingSipAddress: "sip:42000000063@sip-dev.phemium.com",
     settingsDownloadBandwidth: "",
     settingsUploadBandwidth: "",
     settingsFramerate: "",
