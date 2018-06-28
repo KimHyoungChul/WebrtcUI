@@ -27,6 +27,7 @@ var SipVideoCallWebRTC = function()
   this._micro_enabled = true;
   this._camera_enabled = true;
   this._front_camera = true;
+  this._inverse_video = false;
 
 
 
@@ -90,6 +91,7 @@ var SipVideoCallWebRTC = function()
     this._prepare_ui_call_listeners();
     this._prepare_ui_outgoing_call_listeners();
     this._prepare_ui_incoming_call_listeners();
+    this._prepare_ui_video_call_listeners();
   };
 
 
@@ -165,6 +167,17 @@ var SipVideoCallWebRTC = function()
     // Accept button
     this._dom_incoming_call_accept_button = this._dom_incoming_call_wrapper_object.querySelector( '[data-id="accept-button"]' );
     this._dom_incoming_call_cancel_button.onclick = this.hangUp.bind( this );
+  };
+
+
+  /**
+   * Prepare Video call listeners
+   */
+  this._prepare_ui_video_call_listeners = function()
+  {
+    this._dom_video_call_video_fullview = this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.remote' );
+    this._dom_video_call_video_subview = this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.local' );
+    this._dom_video_call_video_subview.onclick = this._inverse_video.bind( this );
   };
 
 
@@ -808,9 +821,17 @@ var SipVideoCallWebRTC = function()
   {
     var remote_address = this._current_call.to.get_address();
     var local_address = this._current_call.from.get_address();
+	// clear child elements
+	this._dom_video_call_video_fullview.innerHTML = '';
+	this._dom_video_call_video_subview.innerHTML = '';
 
-    this._softphone.MediaMixer.display_on( remote_address, this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.remote' ), this._softphone.MediaMixer.PIP_OUTER, true );
-    this._softphone.MediaMixer.display_on( local_address, this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.local' ), this._softphone.MediaMixer.PIP_INNER, true );
+    if (!this._inverse_video) {
+      this._softphone.MediaMixer.display_on( remote_address, this._dom_video_call_video_fullview, this._softphone.MediaMixer.PIP_OUTER, true );
+      this._softphone.MediaMixer.display_on( local_address, this._dom_video_call_video_subview, this._softphone.MediaMixer.PIP_INNER, true );
+	} else {
+      this._softphone.MediaMixer.display_on( remote_address, this._dom_video_call_video_subview, this._softphone.MediaMixer.PIP_OUTER, true );
+      this._softphone.MediaMixer.display_on( local_address, this._dom_video_call_video_fullview, this._softphone.MediaMixer.PIP_INNER, true );
+	}
 
     this._resize_videos();
   };
@@ -849,6 +870,12 @@ var SipVideoCallWebRTC = function()
       remote.style.width = width + 'px';
       remote.style.height = ( ( width * 3 ) / 4 ) + 'px';
     }
+  }
+
+  this._inverse_video = function()
+  {
+	this._inverse_video = !this._inverse_video;
+	this._show_video_call();
   }
 
 
