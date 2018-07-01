@@ -27,7 +27,12 @@ var SipVideoCallWebRTC = function()
   this._micro_enabled = true;
   this._camera_enabled = true;
   this._front_camera = true;
-  this._inverse_video = false;
+  this._is_inverse_video = false;
+  this._video_subview_dragging = false;
+  this._subview_top_dragged = false;
+  this._show_toolbar_sliding = false;
+  this._speaker_enabled = false;
+  this._play_wav = new Audio('http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3');
 
 
 
@@ -151,7 +156,30 @@ var SipVideoCallWebRTC = function()
     // Cancel button
     this._dom_outgoing_call_cancel_button = this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="cancel-button"]' );
     this._dom_outgoing_call_cancel_button.onclick = this.hangUp.bind( this );
+
+	 // speaker button
+    this._dom_outgoing_call_speaker_button = this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="speaker-button"]' );
+    this._dom_outgoing_call_speaker_button.onclick = this._dom_outgoing_call_speaker_button_clicked.bind( this );
+
   };
+     // speaker button clicked
+    this._dom_outgoing_call_speaker_button_clicked = function()
+	{
+		this._speaker_enabled = !this._speaker_enabled;
+
+	if( this._speaker_enabled )
+    {
+	    this._play_wav.volume = 1;
+	 console.log("true");
+    }
+    else
+    {
+		this._play_wav.volume = 0.2;
+    
+		 console.log("false");
+    }
+
+	};
 
 
 
@@ -178,8 +206,206 @@ var SipVideoCallWebRTC = function()
     this._dom_video_call_video_fullview = this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.remote' );
     this._dom_video_call_video_subview = this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.local' );
     this._dom_video_call_video_subview.onclick = this._inverse_video.bind( this );
+
+            
+	this._dom_video_call_video_subview.addEventListener('touchstart', this._video_subview_touchstart.bind(this));
+    this._dom_video_call_video_subview.addEventListener('touchmove',this._video_subview_touchmove.bind(this));
+	this._dom_video_call_video_subview.addEventListener('touchend', this._video_subview_touchend.bind(this));
   };
 
+
+
+    this._video_subview_touchstart = function(evt)
+   	{
+   		
+		this._video_subview_dragging = true;
+		this._diff_x_local = evt.touches[0].clientX - this._dom_video_call_video_subview.offsetLeft;
+		this._diff_y_local = evt.touches[0].clientY - this._dom_video_call_video_subview.offsetTop;
+
+   	};
+
+	this._video_subview_touchmove = function(evt)
+	{
+	
+    	//evt.preventDefault();
+		if (this._video_subview_dragging)
+		{
+		
+			 var left = parseInt(evt.touches[0].clientX - this._diff_x_local );
+			 var top = parseInt(evt.touches[0].clientY - this._diff_y_local );
+
+			   // Check screen boundaries to avoid position video outside viewable part.
+		  if( top < 0 )
+		  {
+		   top = 0;
+		  }
+
+		  if( left < 0 )
+		  {
+		   left = 0;
+		  }
+
+		  // Check taking into account remote video size.
+		  if( top > window.innerHeight - this._dom_video_call_video_subview.clientHeight )
+		  {
+		    top = window.innerHeight - this._dom_video_call_video_subview.clientHeight;
+		  }
+
+		 if( left > window.innerWidth - this._dom_video_call_video_subview.clientWidth )
+		 {
+			 left = window.innerWidth - this._dom_video_call_video_subview.clientWidth;
+		 }
+		   
+			 this._dom_video_call_video_subview.style.left = left + 'px';
+			 this._dom_video_call_video_subview.style.top = top + 'px';
+
+		}
+	
+	};
+
+	this._video_subview_touchend = function(evt)
+  	{
+   		this._video_subview_dragging = false;
+
+		 var left = 0;
+		 var top = 0;
+
+		 var halfwidth = parseInt(window.innerWidth / 2);
+		 var halfheight = parseInt(window.innerHeight / 2);
+
+
+		 var centerX = this._dom_video_call_video_subview.offsetLeft + parseInt (this._dom_local_pip_container.clientWidth /2);
+		 var centerY = this._dom_video_call_video_subview.offsetTop + parseInt(this._dom_local_pip_container.clientHeight /2);
+
+		  // Check taking into account remote video size.
+		if( (centerX < halfwidth) && (centerY < halfheight) )
+		  {
+			  if (this._show_toolbar)
+			  {
+				  left = 0 ;
+		          top =  parseInt(this._dom_local_pip_container.clientHeight /2);
+
+			  }
+			  else
+			  {
+				 left = 0;
+				  top =  this._dom_local_pip_container.clientHeight /2;
+			  }
+			 
+
+		  }
+
+		  if( (centerX < halfwidth) && (centerY > halfheight) )
+		  {
+			 		
+				    left = 0;
+				    top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+			 
+		  }
+
+		  if( (centerX > halfwidth) && (centerY < halfheight) )
+		  {
+			  if (this._show_toolbar)
+			 {
+					left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+					top = this._dom_local_pip_container.clientHeight /2;
+			  }
+			  else 
+			 {
+				   left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+		           top =  this._dom_local_pip_container.clientHeight /2;
+			  }
+		  }
+
+		  if( (centerX > halfwidth) && (centerY > halfheight) )
+		  {
+
+			 
+				  left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+		    	  top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+			
+		  }
+
+
+		 /*
+		  if( (centerX < halfwidth) && (centerY < halfheight) )
+		  {
+			  if (this._show_toolbar_sliding)
+			  {
+					left = 0 ;
+					top =  parseInt(this._dom_local_pip_container.clientHeight /2);
+			  }
+			  else 
+			  {
+				 left = 0;
+				  top = 0;
+			  }
+			  this._subview_top_dragged = true;
+
+		  }
+
+		  if( (centerX < halfwidth) && (centerY > halfheight) )
+		  {
+			 if(this._show_toolbar)
+			  {
+				 if (this._show_toolbar_sliding)
+				 {
+					 left = 0;
+				      top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+				 }
+				 else
+				  {
+					   left = 0;
+				       top = window.innerHeight - this._dom_local_pip_container.clientHeight - 70;
+				  }
+				
+			  }
+			  else
+			  {
+		
+				    left = 0;
+				    top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+			  }
+			  this._subview_top_dragged = false;
+		  }
+
+		  if( (centerX > halfwidth) && (centerY < halfheight) )
+		  {
+			 if (this._show_toolbar_sliding)
+			  {
+					left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+					top =  parseInt(this._dom_local_pip_container.clientHeight /2);
+			  }
+			  else 
+			  {
+				   left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+				   top = 0;
+			  }
+
+		     
+			  this._subview_top_dragged = true;
+		  }
+		  if( (centerX > halfwidth) && (centerY > halfheight) )
+		  {
+
+			  if (this._show_toolbar)
+			  {
+					 left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+					 top = window.innerHeight - this._dom_local_pip_container.clientHeight - 70;
+			  }
+			  else 
+			  {
+				  left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+		    	  top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+			  }
+		      
+			  this._subview_top_dragged = false;
+		  }
+		  */
+			 this._dom_video_call_video_subview.style.left = left + 'px';
+			 this._dom_video_call_video_subview.style.top = top + 'px';
+
+   	};
 
 
   /**
@@ -196,7 +422,6 @@ var SipVideoCallWebRTC = function()
       this._toggle_fullscreen();
     }
   };
-
 
 
   /**
@@ -245,7 +470,7 @@ var SipVideoCallWebRTC = function()
     {
       left = window.innerWidth - this._dom_remote_pip_container.clientWidth;
     }
-
+	console.log("left:",left);
     this._dom_remote_pip_container.style.left = left + 'px';
     this._dom_remote_pip_container.style.top = top + 'px';
   };
@@ -261,6 +486,7 @@ var SipVideoCallWebRTC = function()
   {
     this._diff_x_local = evt.pageX - this._dom_local_pip_container.offsetLeft;
     this._diff_y_local = evt.pageY - this._dom_local_pip_container.offsetTop;
+
   };
 
 
@@ -272,8 +498,8 @@ var SipVideoCallWebRTC = function()
    */
   this._on_drag_local_video = function( evt )
   {
-    evt.preventDefault();
-
+   // evt.preventDefault();
+	
     var left = parseInt( evt.pageX - this._diff_x_local );
     var top = parseInt( evt.pageY - this._diff_y_local );
 
@@ -298,7 +524,7 @@ var SipVideoCallWebRTC = function()
     {
       left = window.innerWidth - this._dom_local_pip_container.clientWidth;
     }
-
+	console.log("style.left:",this._dom_local_pip_container.style.left);
     this._dom_local_pip_container.style.left = left + 'px';
     this._dom_local_pip_container.style.top = top + 'px';
   };
@@ -314,7 +540,10 @@ var SipVideoCallWebRTC = function()
 
     if( this._show_toolbar )
     {
-      this._dom_local_video.classList.add( 'with-toolbar' );
+	 
+			this._dom_local_video.classList.add( 'with-toolbar' );
+			
+		
       Array.from( this._dom_actions_toolbar.children ).forEach( function( toolbar_button )
       {
         toolbar_button.classList.add( 'showed' );
@@ -323,6 +552,7 @@ var SipVideoCallWebRTC = function()
     else
     {
       this._dom_local_video.classList.remove( 'with-toolbar' );
+	  this._show_toolbar_sliding = false;
       Array.from( this._dom_actions_toolbar.children ).forEach( function( toolbar_button )
       {
         toolbar_button.classList.remove( 'showed' );
@@ -339,6 +569,7 @@ var SipVideoCallWebRTC = function()
     if( this._fullscreen )
     {
       // Undo Main wrapper minimization
+	//  this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.remote video' );
       this._dom_call_wrapper_object.classList.remove( 'minimized' );
 
       // Locate main wrapper
@@ -346,18 +577,21 @@ var SipVideoCallWebRTC = function()
       this._old_post_left = this._dom_call_wrapper_object.style.left;
       this._dom_call_wrapper_object.style.top = '0px';
       this._dom_call_wrapper_object.style.left = '0px';
+	
     }
     else
     {
       // Main wrapper minimization
+	//  this._dom_call_wrapper_object.querySelector( '.phe-videocall-video.remote video' );
       this._dom_call_wrapper_object.classList.add( 'minimized' );
-
+	 
       // Locate main wrapper
       this._dom_call_wrapper_object.style.top = this._old_pos_top;
       this._dom_call_wrapper_object.style.left = this._old_pos_left;
 
       // Update messages badge
       this._update_badge( 0 );
+	
     }
 
 
@@ -522,6 +756,7 @@ var SipVideoCallWebRTC = function()
   this.hangUp = function()
   {
     this._current_call.release();
+	this._play_wav.pause();
   };
 
 
@@ -603,6 +838,20 @@ var SipVideoCallWebRTC = function()
   {
     this._dom_outgoing_call_wrapper_object.querySelector( '[data-id="message"]' ).innerHTML = 'Llamando...';
     this._dom_outgoing_call_cancel_button.style.display = '';
+	this._dom_outgoing_call_speaker_button.style.display = '';
+
+	/*play sound  */
+	//	var audio = new Audio('http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3');
+       
+		 this._speaker_enabled = false;
+		 this._play_wav.autoplay = true;
+		 this._play_wav.play();
+		
+		 this._play_wav.volume = 0.2;
+
+
+		console.log ("play sound");
+	
 
     this._event_cb( { event: 'register_success' } );
     this._current_call = this._softphone.Uac.create_outgoing_call( this._to_address );
@@ -802,6 +1051,7 @@ var SipVideoCallWebRTC = function()
               child.style.display = 'none';
           }
       }
+	  this._is_inverse_video = false;
       this._show_video_call();
     }
 
@@ -825,7 +1075,7 @@ var SipVideoCallWebRTC = function()
 	this._dom_video_call_video_fullview.innerHTML = '';
 	this._dom_video_call_video_subview.innerHTML = '';
 
-    if (!this._inverse_video) {
+    if (!this._is_inverse_video) {
       this._softphone.MediaMixer.display_on( remote_address, this._dom_video_call_video_fullview, this._softphone.MediaMixer.PIP_OUTER, true );
       this._softphone.MediaMixer.display_on( local_address, this._dom_video_call_video_subview, this._softphone.MediaMixer.PIP_INNER, true );
 	} else {
@@ -874,7 +1124,7 @@ var SipVideoCallWebRTC = function()
 
   this._inverse_video = function()
   {
-	this._inverse_video = !this._inverse_video;
+	this._is_inverse_video = !this._is_inverse_video;
 	this._show_video_call();
   }
 
@@ -909,6 +1159,7 @@ var SipVideoCallWebRTC = function()
     this._dom_outgoing_call_wrapper_object.style.display = 'none';
     this._dom_call_wrapper_object.style.display = 'none';
     this._dom_outgoing_call_cancel_button.style.display = 'none';
+	this._dom_outgoing_call_speaker_button.style.display = 'none';
     
     // Stop stream
     if( Comm.webrtc.utils.UserMediaChecker.current_stream )
