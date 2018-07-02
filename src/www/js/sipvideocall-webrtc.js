@@ -216,197 +216,106 @@ var SipVideoCallWebRTC = function()
 
 
     this._video_subview_touchstart = function(evt)
-   	{
-   		
-		this._video_subview_dragging = true;
-		this._diff_x_local = evt.touches[0].clientX - this._dom_video_call_video_subview.offsetLeft;
-		this._diff_y_local = evt.touches[0].clientY - this._dom_video_call_video_subview.offsetTop;
-		this._dom_local_video.classList.add( 'with-touchmove' );
-
+    {
+      this._video_subview_dragging = true;
+      this._diff_x_local = evt.touches[0].clientX - this._dom_video_call_video_subview.offsetLeft;
+      this._diff_y_local = evt.touches[0].clientY - this._dom_video_call_video_subview.offsetTop;
+      this._dom_local_video.classList.add( 'with-touchmove' );
+      this._dom_local_video.classList.add( 'with-touchmove' );
    	};
 
 	this._video_subview_touchmove = function(evt)
 	{
 	
-    	//evt.preventDefault();
-		if (this._video_subview_dragging)
-		{
-		
-			 var left = evt.touches[0].clientX - this._diff_x_local ;
-			 var top  = evt.touches[0].clientY - this._diff_y_local ;
-			
+    //evt.preventDefault();
+    if (this._video_subview_dragging)
+    {
+      var left = evt.touches[0].clientX - this._diff_x_local ;
+      var top  = evt.touches[0].clientY - this._diff_y_local ;
+    	// Check screen boundaries to avoid position video outside viewable part.
+      if( top < 0 )
+      {
+       top = 0;
+      }
 
-			   // Check screen boundaries to avoid position video outside viewable part.
-		  if( top < 0 )
-		  {
-		   top = 0;
-		  }
+      if( left < 0 )
+      {
+       left = 0;
+      }
 
-		  if( left < 0 )
-		  {
-		   left = 0;
-		  }
+      // Check taking into account remote video size.
+      if( top > window.innerHeight - this._dom_video_call_video_subview.clientHeight )
+      {
+        top = window.innerHeight - this._dom_video_call_video_subview.clientHeight;
+      }
 
-		  // Check taking into account remote video size.
-		  if( top > window.innerHeight - this._dom_video_call_video_subview.clientHeight )
-		  {
-		    top = window.innerHeight - this._dom_video_call_video_subview.clientHeight;
-		  }
-
-		 if( left > window.innerWidth - this._dom_video_call_video_subview.clientWidth )
-		 {
-			 left = window.innerWidth - this._dom_video_call_video_subview.clientWidth;
-		 }
-		   
-			 this._dom_video_call_video_subview.style.left = left + 'px';
-			 this._dom_video_call_video_subview.style.top = top + 'px';
-
+      if( left > window.innerWidth - this._dom_video_call_video_subview.clientWidth )
+      {
+        left = window.innerWidth - this._dom_video_call_video_subview.clientWidth;
+      }
+      this._dom_video_call_video_subview.style.left = left + 'px';
+      this._dom_video_call_video_subview.style.top = top + 'px';
 		}
-	
 	};
 
-	this._video_subview_touchend = function(evt)
-  	{
-   		this._video_subview_dragging = false;
+  this._video_subview_touchend = function(evt)
+  {
+      this._video_subview_dragging = false;
 
-		 var left = 0;
-		 var top = 0;
+      var left = 0;
+      var top = 0;
 
-		 var halfwidth = window.innerWidth / 2;
-		 var halfheight = window.innerHeight / 2;
+      var halfwidth = parseInt(window.innerWidth / 2);
+      var halfheight = parseInt(window.innerHeight / 2);
 
 
-		 var centerX = this._dom_video_call_video_subview.offsetLeft + this._dom_local_pip_container.clientWidth /2;
-		 var centerY = this._dom_video_call_video_subview.offsetTop + this._dom_local_pip_container.clientHeight /2;
+      var centerX = this._dom_video_call_video_subview.offsetLeft + parseInt (this._dom_local_pip_container.clientWidth /2);
+      var centerY = this._dom_video_call_video_subview.offsetTop + parseInt(this._dom_local_pip_container.clientHeight /2);
 
-		  // Check taking into account remote video size.
-		if( (centerX < halfwidth) && (centerY < halfheight) )
-		  {
-			  if (this._show_toolbar)
-			  {
-				  left = 0 ;
-		          top =  this._dom_local_pip_container.clientHeight /2;
+    // Check taking into account remote video size.
+    if( (centerX < halfwidth) && (centerY < halfheight) )
+      {
+        if (this._show_toolbar)
+        {
+          left = 0 ;
+              top =  parseInt(this._dom_local_pip_container.clientHeight /2);
 
-			  }
-			  else
-			  {
-				 left = 0;
-				  top =  this._dom_local_pip_container.clientHeight /2;
-			  }
-			 
+        }
+        else
+        {
+         left = 0;
+          top =  this._dom_local_pip_container.clientHeight /2;
+        }
+      }
 
-		  }
+      if( (centerX < halfwidth) && (centerY > halfheight) )
+      {
+        left = 0;
+        top = window.innerHeight - this._dom_local_pip_container.clientHeight;
+      }
 
-		  if( (centerX < halfwidth) && (centerY > halfheight) )
-		  {
-			 		
-				    left = 0;
-				    top = window.innerHeight - this._dom_local_pip_container.clientHeight;
-			 
-		  }
-
-		  if( (centerX > halfwidth) && (centerY < halfheight) )
-		  {
-			  if (this._show_toolbar)
-			 {
-					left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-					top = this._dom_local_pip_container.clientHeight /2;
-			  }
-			  else 
-			 {
-				   left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-		           top =  this._dom_local_pip_container.clientHeight /2;
-			  }
-		  }
+      if( (centerX > halfwidth) && (centerY < halfheight) )
+      {
+        if (this._show_toolbar)
+        {
+          left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+          top = this._dom_local_pip_container.clientHeight /2;
+        }
+        else 
+        {
+          left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+          top =  this._dom_local_pip_container.clientHeight /2;
+        }
+      }
 
 		  if( (centerX > halfwidth) && (centerY > halfheight) )
 		  {
-
-			 
-				  left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-		    	  top = window.innerHeight - this._dom_local_pip_container.clientHeight;
-			
+        left = window.innerWidth - this._dom_local_pip_container.clientWidth;
+        top = window.innerHeight - this._dom_local_pip_container.clientHeight;\
 		  }
 
-
-		 /*
-		  if( (centerX < halfwidth) && (centerY < halfheight) )
-		  {
-			  if (this._show_toolbar_sliding)
-			  {
-					left = 0 ;
-					top =  parseInt(this._dom_local_pip_container.clientHeight /2);
-			  }
-			  else 
-			  {
-				 left = 0;
-				  top = 0;
-			  }
-			  this._subview_top_dragged = true;
-
-		  }
-
-		  if( (centerX < halfwidth) && (centerY > halfheight) )
-		  {
-			 if(this._show_toolbar)
-			  {
-				 if (this._show_toolbar_sliding)
-				 {
-					 left = 0;
-				      top = window.innerHeight - this._dom_local_pip_container.clientHeight;
-				 }
-				 else
-				  {
-					   left = 0;
-				       top = window.innerHeight - this._dom_local_pip_container.clientHeight - 70;
-				  }
-				
-			  }
-			  else
-			  {
-		
-				    left = 0;
-				    top = window.innerHeight - this._dom_local_pip_container.clientHeight;
-			  }
-			  this._subview_top_dragged = false;
-		  }
-
-		  if( (centerX > halfwidth) && (centerY < halfheight) )
-		  {
-			 if (this._show_toolbar_sliding)
-			  {
-					left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-					top =  parseInt(this._dom_local_pip_container.clientHeight /2);
-			  }
-			  else 
-			  {
-				   left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-				   top = 0;
-			  }
-
-		     
-			  this._subview_top_dragged = true;
-		  }
-		  if( (centerX > halfwidth) && (centerY > halfheight) )
-		  {
-
-			  if (this._show_toolbar)
-			  {
-					 left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-					 top = window.innerHeight - this._dom_local_pip_container.clientHeight - 70;
-			  }
-			  else 
-			  {
-				  left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-		    	  top = window.innerHeight - this._dom_local_pip_container.clientHeight;
-			  }
-		      
-			  this._subview_top_dragged = false;
-		  }
-		  */
 			 this._dom_video_call_video_subview.style.left = left + 'px';
 			 this._dom_video_call_video_subview.style.top = top + 'px';
-
    	};
 
 
