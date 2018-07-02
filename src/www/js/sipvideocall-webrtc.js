@@ -221,6 +221,7 @@ var SipVideoCallWebRTC = function()
 		this._video_subview_dragging = true;
 		this._diff_x_local = evt.touches[0].clientX - this._dom_video_call_video_subview.offsetLeft;
 		this._diff_y_local = evt.touches[0].clientY - this._dom_video_call_video_subview.offsetTop;
+		this._dom_local_video.classList.add( 'with-touchmove' );
 
    	};
 
@@ -231,8 +232,9 @@ var SipVideoCallWebRTC = function()
 		if (this._video_subview_dragging)
 		{
 		
-			 var left = parseInt(evt.touches[0].clientX - this._diff_x_local );
-			 var top = parseInt(evt.touches[0].clientY - this._diff_y_local );
+			 var left = evt.touches[0].clientX - this._diff_x_local ;
+			 var top  = evt.touches[0].clientY - this._diff_y_local ;
+			
 
 			   // Check screen boundaries to avoid position video outside viewable part.
 		  if( top < 0 )
@@ -270,12 +272,12 @@ var SipVideoCallWebRTC = function()
 		 var left = 0;
 		 var top = 0;
 
-		 var halfwidth = parseInt(window.innerWidth / 2);
-		 var halfheight = parseInt(window.innerHeight / 2);
+		 var halfwidth = window.innerWidth / 2;
+		 var halfheight = window.innerHeight / 2;
 
 
-		 var centerX = this._dom_video_call_video_subview.offsetLeft + parseInt (this._dom_local_pip_container.clientWidth /2);
-		 var centerY = this._dom_video_call_video_subview.offsetTop + parseInt(this._dom_local_pip_container.clientHeight /2);
+		 var centerX = this._dom_video_call_video_subview.offsetLeft + this._dom_local_pip_container.clientWidth /2;
+		 var centerY = this._dom_video_call_video_subview.offsetTop + this._dom_local_pip_container.clientHeight /2;
 
 		  // Check taking into account remote video size.
 		if( (centerX < halfwidth) && (centerY < halfheight) )
@@ -283,7 +285,7 @@ var SipVideoCallWebRTC = function()
 			  if (this._show_toolbar)
 			  {
 				  left = 0 ;
-		          top =  parseInt(this._dom_local_pip_container.clientHeight /2);
+		          top =  this._dom_local_pip_container.clientHeight /2;
 
 			  }
 			  else
