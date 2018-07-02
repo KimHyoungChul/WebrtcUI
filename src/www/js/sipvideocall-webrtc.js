@@ -756,6 +756,7 @@ var SipVideoCallWebRTC = function()
        
 		 this._speaker_enabled = false;
 		 this._play_wav.autoplay = true;
+     this._play_wav.loop = true;
 		 this._play_wav.play();
 		
 		 this._play_wav.volume = 0.2;
