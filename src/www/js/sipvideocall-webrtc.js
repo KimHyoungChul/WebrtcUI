@@ -311,7 +311,7 @@ var SipVideoCallWebRTC = function()
 		  if( (centerX > halfwidth) && (centerY > halfheight) )
 		  {
         left = window.innerWidth - this._dom_local_pip_container.clientWidth;
-        top = window.innerHeight - this._dom_local_pip_container.clientHeight;\
+        top = window.innerHeight - this._dom_local_pip_container.clientHeight;
 		  }
 
 			 this._dom_video_call_video_subview.style.left = left + 'px';
